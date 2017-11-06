@@ -288,49 +288,79 @@ class Game {
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("\n\033[1;97m     A   B   C   D   E   F   G   H  \n");
-        builder.append("   \033[1;97m\u250F\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2513\n");
+        builder.append("\n\033[1;97m    A  B  C  D  E  F  G  H  \n");
 
         for (int ii = 0; ii < 8; ii++) {
             builder.append(" \033[1;97m");
             builder.append(8 - ii);
             builder.append("\033[1;97m ");
-            builder.append("\u2503");
+            builder.append("");
 
             int count = 0;
             for (int jj = 0; jj < 8; ) {
                 if (ii % 2 == 0) {
                     builder.append(colorPieces(0, ii, jj++));
-                    builder.append("\033[1;97m\u2503");
+                    builder.append("\033[1;97m");
                 }
                 builder.append(colorPieces(board[ii][count++], ii, jj++));
-                builder.append("\033[1;97m\u2503");
+                builder.append("\033[1;97m");
                 if (ii % 2 == 1) {
                     builder.append(colorPieces(0, ii, jj++));
-                    builder.append("\033[1;97m\u2503");
+                    builder.append("\033[1;97m");
                 }
             }
-
-
-            builder.append("\n");
-
-            if (ii == 7)
-                builder.append("   \u2517");
-            else builder.append("   \u2523");
-
-            if (ii < 7)
-                builder.append("\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501");
-            else
-                builder.append("\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501");
-
-            if (ii == 7)
-                builder.append("\u251B");
-            else builder.append("\u252B");
             builder.append("\n");
 
         }
         return builder.toString();
     }
+
+//    public String toString() {
+//        StringBuilder builder = new StringBuilder();
+//
+//        builder.append("\n\033[1;97m     A   B   C   D   E   F   G   H  \n");
+//        builder.append("   \033[1;97m\u250F\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2513\n");
+//
+//        for (int ii = 0; ii < 8; ii++) {
+//            builder.append(" \033[1;97m");
+//            builder.append(8 - ii);
+//            builder.append("\033[1;97m ");
+//            builder.append("\u2503");
+//
+//            int count = 0;
+//            for (int jj = 0; jj < 8; ) {
+//                if (ii % 2 == 0) {
+//                    builder.append(colorPieces(0, ii, jj++));
+//                    builder.append("\033[1;97m\u2503");
+//                }
+//                builder.append(colorPieces(board[ii][count++], ii, jj++));
+//                builder.append("\033[1;97m\u2503");
+//                if (ii % 2 == 1) {
+//                    builder.append(colorPieces(0, ii, jj++));
+//                    builder.append("\033[1;97m\u2503");
+//                }
+//            }
+//
+//
+//            builder.append("\n");
+//
+//            if (ii == 7)
+//                builder.append("   \u2517");
+//            else builder.append("   \u2523");
+//
+//            if (ii < 7)
+//                builder.append("\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501");
+//            else
+//                builder.append("\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501");
+//
+//            if (ii == 7)
+//                builder.append("\u251B");
+//            else builder.append("\u252B");
+//            builder.append("\n");
+//
+//        }
+//        return builder.toString();
+//    }
 
 }
 

@@ -201,7 +201,6 @@ class Player {
         return playerNumber == 1 ? score : -score;
     }
 
-
     private long alphaBetaPrune(Game gameNode, int depth, long alpha, long beta) {
 
         if (!outOfTime) {
