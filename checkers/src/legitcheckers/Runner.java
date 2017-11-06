@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Random;
 import java.util.Scanner;
 
 class Runner {
@@ -105,19 +104,19 @@ class Runner {
 
                 if (runner.game.availableMoves.size() > 0 && runner.playerOneMode > 0) {
 
-//                    while (true) {
-//                        System.out.print(String.format("Select move for Black player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
-//                        userChoice = scan.nextLine();
-//                        try {
-//                            moveChoice = Integer.parseInt(userChoice);
-//                        } catch (NumberFormatException e) {
-//                            continue;
-//                        }
-//                        if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
-//                            break;
-//                    }
+                    while (true) {
+                        System.out.print(String.format("Select move for Black player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
+                        userChoice = scan.nextLine();
+                        try {
+                            moveChoice = Integer.parseInt(userChoice);
+                        } catch (NumberFormatException e) {
+                            continue;
+                        }
+                        if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
+                            break;
+                    }
 
-                    moveChoice = (new Random()).nextInt(runner.game.availableMoves.size()) + 1;
+//                    moveChoice = (new Random()).nextInt(runner.game.availableMoves.size()) + 1;
 
 
                     Constants.clearScreen();
@@ -147,19 +146,19 @@ class Runner {
 
                 if (runner.game.availableMoves.size() > 0 && runner.playerTwoMode > 0) {
 
-//                    while (true) {
-//                        System.out.print(String.format("Select move for Red player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
-//                        userChoice = scan.nextLine();
-//                        try {
-//                            moveChoice = Integer.parseInt(userChoice);
-//                        } catch (NumberFormatException e) {
-//                            continue;
-//                        }
-//                        if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
-//                            break;
-//                    }
+                    while (true) {
+                        System.out.print(String.format("Select move for Red player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
+                        userChoice = scan.nextLine();
+                        try {
+                            moveChoice = Integer.parseInt(userChoice);
+                        } catch (NumberFormatException e) {
+                            continue;
+                        }
+                        if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
+                            break;
+                    }
 
-                    moveChoice = (new Random()).nextInt(runner.game.availableMoves.size()) + 1;
+//                    moveChoice = (new Random()).nextInt(runner.game.availableMoves.size()) + 1;
 
                     Constants.clearScreen();
                     System.out.print("Previous Move:\nRed Player chose move " + moveChoice + " \n\n\n");
