@@ -85,7 +85,7 @@ class Game {
     }
 
     private String nameSquare(int row, int col) {
-        return row % 2 == 0 ?  Character.toString((char) ('A' + (2* col + 1))) + Integer.toString(8 - row) : Character.toString((char) ('A' + (2* col))) + Integer.toString(8 - row);
+        return row % 2 == 0 ? Character.toString((char) ('A' + (2 * col + 1))) + Integer.toString(8 - row) : Character.toString((char) ('A' + (2 * col))) + Integer.toString(8 - row);
     }
 
     void getNextMoves() {
@@ -97,13 +97,13 @@ class Game {
         for (int ii = 0; ii < pieces[currTurn].size(); ii++) {
 
             startPos = pieces[currTurn].get(ii);
-            // King piece else regular
+
             if (board[startPos.row][startPos.col] > 2) {
                 dirs.add(Constants.NE);
                 dirs.add(Constants.NW);
                 dirs.add(Constants.SE);
                 dirs.add(Constants.SW);
-            } else if (currTurn == 0) { // Player two can't move backwards so only SE and SW available
+            } else if (currTurn == 0) {
                 dirs.add(Constants.SE);
                 dirs.add(Constants.SW);
             } else {
@@ -141,8 +141,8 @@ class Game {
             Location startPos = new Location(newMove.end);
 
             Location captPos, endPos;
-            captPos = setEndLocation(startPos, dirs.get(ii), 1); //head in ith direction for a unit dist
-            //Valid position and only 1 radial dist away
+            captPos = setEndLocation(startPos, dirs.get(ii), 1);
+
             if (captPos != null && captPos.col >= 0)
                 if (board[captPos.row][captPos.col] % 2 != currTurn && board[captPos.row][captPos.col] > Constants.emptyPlayer) {
                     boolean chainOfPieces = false;
@@ -232,8 +232,8 @@ class Game {
 
     void printNextMoves() {
         getNextMoves();
-        System.out.println(String.format("Move Number %5d", ++moveCount));
-        System.out.println("Player " + (2 - currTurn) + " has a total of " + availableMoves.size() + " moves available. " + (Constants.movesToDraw - numWalkMoves) + " moves until draw.");
+        System.out.println(String.format("There have been %5d moves so far. Scroll up to see previous moves.", ++moveCount));
+        System.out.println((currTurn == 0 ? "Red Player" : "Black Player") + " has a total of " + availableMoves.size() + " moves available. " + (Constants.movesToDraw - numWalkMoves) + " moves until draw.");
 
         for (int ii = 0; ii < availableMoves.size(); ii++) {
             int start = availableMoves.get(ii).startPiece;
@@ -249,8 +249,8 @@ class Game {
             System.out.println();
         }
         System.out.println();
-        System.out.println("Player #1 King: " + colorPieces(Constants.kingPlayerOne, 0, 1) + "\033[1;97m\tPlayer #2 King: " + colorPieces(Constants.kingPlayerTwo, 0, 1));
-        System.out.println("\033[1;97mPlayer #1 Pawn: " + colorPieces(Constants.regularPlayerOne, 0, 1) + "\033[1;97m\tPlayer #2 Pawn: " + colorPieces(Constants.regularPlayerTwo, 0, 1) + "\n\n\033[1;97m");
+        System.out.println("Black King: " + colorPieces(Constants.kingPlayerOne, 0, 1) + "\033[1;97m\tRed King: " + colorPieces(Constants.kingPlayerTwo, 0, 1));
+        System.out.println("\033[1;97mBlack Pawn: " + colorPieces(Constants.regularPlayerOne, 0, 1) + "\033[1;97m\tRed Pawn: " + colorPieces(Constants.regularPlayerTwo, 0, 1) + "\n\n\033[1;97m");
     }
 
 
@@ -360,7 +360,8 @@ class Move {
     int startPiece;
     Location end;
 
-    Move() { }
+    Move() {
+    }
 
     Move(int startPiece, Location end) {
         this.startPiece = startPiece;

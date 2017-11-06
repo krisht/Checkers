@@ -9,9 +9,9 @@
     <list default="true" id="d57c25e2-a5b3-4a59-91e8-1f7e206046c3" name="Default" comment="This is absolutely garbo">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/legitcheckers/Constants.java" afterPath="$PROJECT_DIR$/src/legitcheckers/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/legitcheckers/Game.java" afterPath="$PROJECT_DIR$/src/legitcheckers/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/legitcheckers/Player.java" afterPath="$PROJECT_DIR$/src/legitcheckers/Player.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/legitcheckers/Runner.java" afterPath="$PROJECT_DIR$/src/legitcheckers/Runner.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,16 +23,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/legitcheckers/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="178" column="95" lean-forward="true" selection-start-line="178" selection-start-column="95" selection-end-line="178" selection-end-column="95" />
+            <state relative-caret-position="480">
+              <caret line="246" column="39" lean-forward="false" selection-start-line="246" selection-start-column="39" selection-end-line="246" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#isTerminalState#0;class#Player#0" expanded="false" />
                 <element signature="method#utilityFunction#0;class#Player#0" expanded="false" />
+                <element signature="method#evaluateState#0;class#Player#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="board3.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/legitcheckers/board3.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="9" column="2" lean-forward="false" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -40,8 +51,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/legitcheckers/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2356">
-              <caret line="315" column="16" lean-forward="true" selection-start-line="315" selection-start-column="16" selection-end-line="315" selection-end-column="16" />
+            <state relative-caret-position="372">
+              <caret line="256" column="30" lean-forward="true" selection-start-line="256" selection-start-column="30" selection-end-line="256" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#Game#0;class#Game#0" expanded="false" />
@@ -49,7 +60,6 @@
                 <element signature="method#takePiece#0;class#Game#0" expanded="false" />
                 <element signature="method#chooseMove#0;class#Game#0" expanded="false" />
                 <element signature="method#nameSquare#0;class#Game#0" expanded="false" />
-                <element signature="method#getNextMoves#0;class#Game#0" expanded="false" />
                 <element signature="method#getWalks#0;class#Game#0" expanded="false" />
                 <element signature="method#Location#0;class#Location#0" expanded="false" />
                 <element signature="method#Location#1;class#Location#0" expanded="false" />
@@ -63,8 +73,8 @@
       <file leaf-file-name="Runner.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/legitcheckers/Runner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="17" column="57" lean-forward="false" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
+            <state relative-caret-position="270">
+              <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,8 +85,8 @@
       <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/legitcheckers/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="34" column="38" lean-forward="true" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
+            <state relative-caret-position="350">
+              <caret line="69" column="64" lean-forward="false" selection-start-line="69" selection-start-column="64" selection-end-line="69" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -93,15 +103,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>isHole</find>
-      <find>--</find>
-      <find>alphaBetasec</find>
-      <find>alphaBeta</find>
-      <find>d - 2</find>
-      <find>Moveable</find>
-      <find>Player</find>
-      <find>d - 1</find>
-      <find>isCenter</find>
       <find>center</find>
       <find>TimeUnit</find>
       <find>Call</find>
@@ -121,8 +122,17 @@
       <find>evaluate</find>
       <find>eva</find>
       <find>posVal</find>
-      <find>//.*</find>
       <find>estimateDistan</find>
+      <find>unicode</find>
+      <find>else if</find>
+      <find>difference</find>
+      <find>playerAdvantage</find>
+      <find>startingDepth</find>
+      <find>maxDepth</find>
+      <find>start</find>
+      <find>//.*</find>
+      <find>Player</find>
+      <find>printMoves</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -141,10 +151,11 @@
         <option value="$PROJECT_DIR$/src/Game.java" />
         <option value="$PROJECT_DIR$/src/Player.java" />
         <option value="$PROJECT_DIR$/src/Makefile" />
-        <option value="$PROJECT_DIR$/src/legitcheckers/Runner.java" />
         <option value="$PROJECT_DIR$/src/legitcheckers/Constants.java" />
+        <option value="$PROJECT_DIR$/src/legitcheckers/Runner.java" />
         <option value="$PROJECT_DIR$/src/legitcheckers/Game.java" />
         <option value="$PROJECT_DIR$/src/legitcheckers/Player.java" />
+        <option value="$PROJECT_DIR$/src/legitcheckers/board3.txt" />
       </list>
     </option>
   </component>
@@ -162,7 +173,7 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -175,7 +186,34 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="checkers" type="b2602c69:ProjectViewProjectNode" />
+              <item name="checkers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="checkers" type="b2602c69:ProjectViewProjectNode" />
+              <item name="checkers" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="checkers" type="b2602c69:ProjectViewProjectNode" />
+              <item name="checkers" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="legitcheckers" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -322,7 +360,7 @@
       <workItem from="1509815720872" duration="81067000" />
       <workItem from="1509932421981" duration="4377000" />
       <workItem from="1509937259685" duration="357000" />
-      <workItem from="1509937787863" duration="6598000" />
+      <workItem from="1509937787863" duration="8669000" />
     </task>
     <task id="LOCAL-00001" summary="This is absolutely garbo">
       <created>1509937420763</created>
@@ -338,11 +376,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509942098815</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="This is absolutely garbo">
+      <created>1509944440937</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1509944440937</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102521000" />
+    <option name="totallyTimeSpent" value="104592000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="57" y="-4" width="1863" height="1084" extended-state="6" />
@@ -350,7 +395,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32924336" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924336" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -361,7 +406,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36553946" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36553946" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719836" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -393,7 +438,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="11" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -406,6 +451,7 @@
             <element signature="imports" expanded="true" />
             <element signature="method#isTerminalState#0;class#Player#0" expanded="false" />
             <element signature="method#utilityFunction#0;class#Player#0" expanded="false" />
+            <element signature="method#evaluateState#0;class#Player#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -421,7 +467,6 @@
             <element signature="method#takePiece#0;class#Game#0" expanded="false" />
             <element signature="method#chooseMove#0;class#Game#0" expanded="false" />
             <element signature="method#nameSquare#0;class#Game#0" expanded="false" />
-            <element signature="method#getNextMoves#0;class#Game#0" expanded="false" />
             <element signature="method#getWalks#0;class#Game#0" expanded="false" />
             <element signature="method#Location#0;class#Location#0" expanded="false" />
             <element signature="method#Location#1;class#Location#0" expanded="false" />
@@ -457,6 +502,7 @@
             <element signature="imports" expanded="true" />
             <element signature="method#isTerminalState#0;class#Player#0" expanded="false" />
             <element signature="method#utilityFunction#0;class#Player#0" expanded="false" />
+            <element signature="method#evaluateState#0;class#Player#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -482,7 +528,6 @@
             <element signature="method#takePiece#0;class#Game#0" expanded="false" />
             <element signature="method#chooseMove#0;class#Game#0" expanded="false" />
             <element signature="method#nameSquare#0;class#Game#0" expanded="false" />
-            <element signature="method#getNextMoves#0;class#Game#0" expanded="false" />
             <element signature="method#getWalks#0;class#Game#0" expanded="false" />
             <element signature="method#Location#0;class#Location#0" expanded="false" />
             <element signature="method#Location#1;class#Location#0" expanded="false" />
@@ -508,6 +553,7 @@
             <element signature="imports" expanded="true" />
             <element signature="method#isTerminalState#0;class#Player#0" expanded="false" />
             <element signature="method#utilityFunction#0;class#Player#0" expanded="false" />
+            <element signature="method#evaluateState#0;class#Player#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -523,7 +569,6 @@
             <element signature="method#takePiece#0;class#Game#0" expanded="false" />
             <element signature="method#chooseMove#0;class#Game#0" expanded="false" />
             <element signature="method#nameSquare#0;class#Game#0" expanded="false" />
-            <element signature="method#getNextMoves#0;class#Game#0" expanded="false" />
             <element signature="method#getWalks#0;class#Game#0" expanded="false" />
             <element signature="method#Location#0;class#Location#0" expanded="false" />
             <element signature="method#Location#1;class#Location#0" expanded="false" />
@@ -559,6 +604,7 @@
             <element signature="imports" expanded="true" />
             <element signature="method#isTerminalState#0;class#Player#0" expanded="false" />
             <element signature="method#utilityFunction#0;class#Player#0" expanded="false" />
+            <element signature="method#evaluateState#0;class#Player#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -574,7 +620,6 @@
             <element signature="method#takePiece#0;class#Game#0" expanded="false" />
             <element signature="method#chooseMove#0;class#Game#0" expanded="false" />
             <element signature="method#nameSquare#0;class#Game#0" expanded="false" />
-            <element signature="method#getNextMoves#0;class#Game#0" expanded="false" />
             <element signature="method#getWalks#0;class#Game#0" expanded="false" />
             <element signature="method#Location#0;class#Location#0" expanded="false" />
             <element signature="method#Location#1;class#Location#0" expanded="false" />
@@ -625,16 +670,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/legitcheckers/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="34" column="38" lean-forward="true" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
+        <state relative-caret-position="350">
+          <caret line="69" column="64" lean-forward="false" selection-start-line="69" selection-start-column="64" selection-end-line="69" selection-end-column="64" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/legitcheckers/Runner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="17" column="57" lean-forward="false" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
+        <state relative-caret-position="270">
+          <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -643,8 +688,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/legitcheckers/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2356">
-          <caret line="315" column="16" lean-forward="true" selection-start-line="315" selection-start-column="16" selection-end-line="315" selection-end-column="16" />
+        <state relative-caret-position="372">
+          <caret line="256" column="30" lean-forward="true" selection-start-line="256" selection-start-column="30" selection-end-line="256" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#Game#0;class#Game#0" expanded="false" />
@@ -652,7 +697,6 @@
             <element signature="method#takePiece#0;class#Game#0" expanded="false" />
             <element signature="method#chooseMove#0;class#Game#0" expanded="false" />
             <element signature="method#nameSquare#0;class#Game#0" expanded="false" />
-            <element signature="method#getNextMoves#0;class#Game#0" expanded="false" />
             <element signature="method#getWalks#0;class#Game#0" expanded="false" />
             <element signature="method#Location#0;class#Location#0" expanded="false" />
             <element signature="method#Location#1;class#Location#0" expanded="false" />
@@ -664,13 +708,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/legitcheckers/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="178" column="95" lean-forward="true" selection-start-line="178" selection-start-column="95" selection-end-line="178" selection-end-column="95" />
+        <state relative-caret-position="480">
+          <caret line="246" column="39" lean-forward="false" selection-start-line="246" selection-start-column="39" selection-end-line="246" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#isTerminalState#0;class#Player#0" expanded="false" />
             <element signature="method#utilityFunction#0;class#Player#0" expanded="false" />
+            <element signature="method#evaluateState#0;class#Player#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/legitcheckers/board3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="2" lean-forward="false" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>

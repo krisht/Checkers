@@ -39,7 +39,7 @@ class Runner {
         runner.initializeGame();
 
         while (true) {
-            System.out.print("Is Black (Player #1) going to be an AI? (Y/N): ");
+            System.out.print("Is Black (Player #1, bottom) going to be an AI? (Y/N): ");
             userChoice = scan.nextLine().toUpperCase();
             if (userChoice.equals("Y") || userChoice.equals("N")) {
                 runner.playerOneMode = userChoice.equals("Y") || userChoice.equals("YES") ? Constants.computerMode : Constants.playerMode;
@@ -47,7 +47,7 @@ class Runner {
             }
         }
         while (true) {
-            System.out.print("Is Red (Player #2) going to be an AI? (Y/N): ");
+            System.out.print("Is Red (Player #2, top) going to be an AI? (Y/N): ");
             userChoice = scan.nextLine().toUpperCase();
             if (userChoice.equals("Y") || userChoice.equals("N")) {
                 runner.playerTwoMode = userChoice.equals("Y") || userChoice.equals("YES") ? Constants.computerMode : Constants.playerMode;
@@ -172,8 +172,7 @@ class Runner {
             if (runner.game.currTurn % 2 == 1) {
                 System.out.println("Red player won!");
                 System.out.println(Constants.winPlayerTwo);
-            }
-            else {
+            } else {
                 System.out.println("Black player won!");
                 System.out.println(Constants.winPlayerOne);
             }
