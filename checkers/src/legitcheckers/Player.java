@@ -57,16 +57,19 @@ class Player {
         if (bestMove < 1)
             completedBestMove = (new Random()).nextInt(game.availableMoves.size()) + 1;
 
+        Constants.clearScreen();
+
         if (maxDepth == Constants.maxDepth - 1)
-            System.out.println(String.format("Reached the maximum allowable depth, %d, in %d milliseconds.", Constants.maxDepth, (currTimeMS - startTimeMS)));
+            System.out.println(String.format("Previous Move:\nReached the maximum allowable depth, %d, in %d milliseconds.", Constants.maxDepth, (currTimeMS - startTimeMS)));
         else
-            System.out.println(String.format("Reached %s depth in %d milliseconds.", Constants.ordinal(maxDepth), (currTimeMS - startTimeMS)));
+            System.out.println(String.format("Previous Move:\nReached %s depth in %d milliseconds.", Constants.ordinal(maxDepth), (currTimeMS - startTimeMS)));
 
         if (outOfTime)
             System.out.println(String.format("Time ran out while searching %s depth.", Constants.ordinal(maxDepth + 1)));
+        else System.out.print("\n");
 
 
-        System.out.println(String.format("The AI for %s Player chooses the %s move.", game.currTurn == 0 ? "Red" : "Black", Constants.ordinal(completedBestMove)));
+        System.out.println(String.format("The AI for %s Player chose the %s move.", game.currTurn == 0 ? "Red" : "Black", Constants.ordinal(completedBestMove)));
 
         game.getNextMoves();
         return completedBestMove;

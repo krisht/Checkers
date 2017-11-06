@@ -239,8 +239,8 @@ class Game {
 
     void printNextMoves() {
         getNextMoves();
-        System.out.println(String.format("There have been %5d moves so far. Scroll up to see previous moves.", ++moveCount));
-        System.out.println((currTurn == 0 ? "Red Player" : "Black Player") + " has a total of " + availableMoves.size() + " moves available. " + (Constants.movesToDraw - numWalkMoves) + " moves until draw.");
+        System.out.println(String.format("There have been %3d moves so far. Scroll up to see previous moves.", ++moveCount));
+        System.out.println((currTurn == 0 ? "Red   Player" : "Black Player") + " has a total of " + availableMoves.size() + " moves available. " + (Constants.movesToDraw - numWalkMoves) + " moves until draw.");
 
         for (int ii = 0; ii < availableMoves.size(); ii++) {
             int start = availableMoves.get(ii).startPiece;

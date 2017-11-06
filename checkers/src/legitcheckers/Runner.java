@@ -115,16 +115,21 @@ class Runner {
                         if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
                             break;
                     }
-
+                    Constants.clearScreen();
+                    System.out.print("Previous Move:\nBlack Player chose move " + moveChoice + " \n\n\n");
                     runner.game.chooseMove(moveChoice);
 
                 } else if (runner.game.availableMoves.size() > 0) {
                     //Player One is an AI
                     if (runner.game.availableMoves.size() > 1) {
-                        System.out.println("Black's AI is searching for an optimal move...");
+                        System.out.print("Black's AI is searching for an optimal move...\n");
                         moveChoice = runner.playerOne.chooseAIMove(runner.game);
                         runner.game.chooseMove(moveChoice);
-                    } else runner.game.chooseMove(1);
+                    } else {
+                        Constants.clearScreen();
+                        System.out.print("Previous Move:\nBlack chose only possible move... \n\n\n");
+                        runner.game.chooseMove(1);
+                    }
 
                 } else {
                     runner.gameOver = true;
@@ -149,15 +154,22 @@ class Runner {
                             break;
                     }
 
+                    Constants.clearScreen();
+                    System.out.print("Previous Move:\nRed Player chose move " + moveChoice + " \n\n\n");
+
                     runner.game.chooseMove(moveChoice);
 
                 } else if (runner.game.availableMoves.size() > 0) {
                     //Player Two is an AI
                     if (runner.game.availableMoves.size() > 1) {
-                        System.out.println("Red's AI is searching for an optimal move...");
+                        System.out.print("Red's AI is searching for an optimal move...\n");
                         moveChoice = runner.playerTwo.chooseAIMove(runner.game);
                         runner.game.chooseMove(moveChoice);
-                    } else runner.game.chooseMove(1);
+                    } else {
+                        Constants.clearScreen();
+                        System.out.print("Previous Move:\nRed chose only possible move... \n\n\n");
+                        runner.game.chooseMove(1);
+                    }
 
                 } else {
                     runner.gameOver = true;
@@ -168,7 +180,7 @@ class Runner {
 
             if (runner.game.numWalkMoves == Constants.movesToDraw)
                 runner.staleMate = true;
-            Constants.clearScreen();
+
         }
 
         System.out.println("Game over!");
@@ -246,7 +258,6 @@ class Runner {
             int c;
 
             if ((c = Integer.parseInt(reader.readLine())) >= 0) {
-                System.out.println(c);
                 if (c == 2)
                     game.currTurn = 0;
                 else game.currTurn = 1;
