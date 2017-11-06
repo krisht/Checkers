@@ -237,8 +237,160 @@ class Player {
         return game.currTurn == 1 ? Constants.minVal * (depth + 1) : Constants.maxVal * (depth + 1);
     }
 
-// --Commented out by Inspection START (11/5/17 9:54 PM):
-//    private long evaluateState2(Game game) {
+    private long evaluateState(Game game) {
+        int score;
+        int pieceDiff = 0, posDiff = 0, differenceValue = 0, endGameValue = 0;
+        int playerAdvantage = -1;
+        int p1AdvDistance = 0, p2AdvDistance = 0;
+
+        if (game.pieces[1].size() > game.pieces[0].size())
+            playerAdvantage = 1;
+        else if (game.pieces[1].size() < game.pieces[0].size())
+            playerAdvantage = 0;
+
+        for (Location loc : game.pieces[1]) {
+            if (game.board[loc.row][loc.col] > 2) {
+                // Kings
+                pieceDiff += 5;
+
+                // If behind in pieces and about to lose, retreat to double corners
+                if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) {
+                    if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
+                        endGameValue += 9;
+                    }
+                }
+                // Else: If player 1 has advantage, smaller bonus for being near the double corner (closer the better)
+                else if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) {
+                    // If Player 2 occupying top left corner
+                    if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 0)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 0))) {
+
+                        // Right on the corner
+                        if ((loc.row < 2) && (loc.col == 0)) {
+                            endGameValue += 7;
+                        }
+                        // One move away from the corner
+                        if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
+                            endGameValue += 5;
+                        }
+                        // Two moves away from the corner
+                        else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
+                            endGameValue += 3;
+                        } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
+                            endGameValue += 3;
+                        }
+
+                    }
+                    // If Player 2 occupying bottom right corner
+                    else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 0)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 0))) {
+
+                        // Right on the corner
+                        if ((loc.row > 5) && (loc.col == 3)) {
+                            endGameValue += 7;
+                        }
+                        // One move away from the corner
+                        if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
+                            endGameValue += 5;
+                        }
+                        // Two moves away from the corner
+                        else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
+                            endGameValue += 3;
+                        } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
+                            endGameValue += 3;
+                        }
+                    }
+
+
+                }
+            } else {
+                // Regular pieces
+                pieceDiff += 3;
+
+                // Staying in back row to prevent opponent kinging
+                if (loc.row == 7) {
+                    posDiff += 9;
+                } else {
+                    // Closer to being king, row = 0, the better
+                    posDiff += (7 - loc.row);
+                }
+            }
+        }
+
+        for (Location loc : game.pieces[0]) {
+            if (game.board[loc.row][loc.col] > 2) {
+                // Kings
+                pieceDiff -= 5;
+
+                // If behind in pieces and about to lose, retreat to double corners
+                if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) {
+                    if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
+                        endGameValue -= 9;
+                    }
+                }
+                // Else: If player 2 has advantage, smaller bonus for being near the double corner (closer the better)
+                else if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) {
+                    // If Player 1 occupying top left corner
+                    if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 1)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 1))) {
+
+                        // Right on the corner
+                        if ((loc.row < 2) && (loc.col == 0)) {
+                            endGameValue -= 7;
+                        }
+                        // One move away from the corner
+                        if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
+                            endGameValue -= 5;
+                        }
+                        // Two moves away from the corner
+                        else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
+                            endGameValue -= 3;
+                        } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
+                            endGameValue -= 3;
+                        }
+
+                    }
+                    // If Player 1 occupying bottom right corner
+                    else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 1)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 1))) {
+
+                        // Right on the corner
+                        if ((loc.row > 5) && (loc.col == 3)) {
+                            endGameValue -= 7;
+                        }
+                        // One move away from the corner
+                        if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
+                            endGameValue -= 5;
+                        }
+                        // Two moves away from the corner
+                        else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
+                            endGameValue -= 3;
+                        } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
+                            endGameValue -= 3;
+                        }
+                    }
+                }
+            } else {
+                // Regular pieces
+                pieceDiff -= 3;
+
+                // Staying in back row to prevent opponent kinging
+                if (loc.row == 0) {
+                    posDiff -= 9;
+                } else {
+                    // Closer to being king, row = 7, the better
+                    posDiff -= loc.row;
+                }
+            }
+        }
+
+        pieceDiff = pieceDiff * 1000000;
+        posDiff = posDiff * 100000;
+        // Difference in number of pieces
+        differenceValue = (game.pieces[1].size() - game.pieces[0].size()) * 1000;
+        endGameValue = endGameValue * 10;
+        score = pieceDiff + posDiff + differenceValue + endGameValue;
+        return score;
+    }
+
+
+//    private long evaluateState(Game game) {
 //        int piecesDiff = game.pieces[1].size() - game.pieces[0].size(); //Done
 //        int kingsDiff = 0; //Done
 //        int pawnDiff = 0;
@@ -436,21 +588,54 @@ class Player {
 //        else if (piecesDiff == 0)
 //            kingsGame = 0;
 //
-//
-//        int kingDiffWeight = 5000000;
-//        int pawnDiffWeight = 3000000;
-//        int posValWeight = 10000;
-//        int pieceDiffWeight = 1000;
-//        int regDefWeight = 10000;
-//        int kingDefWeight = 50000;
-//        int sidesDefWeight = 30000;
-//        int cornDefWeight = 20000;
-//        int posMovesWeight = 1000;
-//        int kingsGameWeight = 10000;
-//        int regsGameWeight = 10000;
-//        int advantageValueWeight = 100;
+//        int kingDiffWeight = 0;//5000000;
+//        int pawnDiffWeight = 0;//3000000;
+//        int posValWeight = 0;//10000;
+//        int pieceDiffWeight = 0;//1000;
+//        int regDefWeight = 0;//10000;
+//        int kingDefWeight = 0;//50000;
+//        int sidesDefWeight = 0;//30000;
+//        int cornDefWeight = 0;//20000;
+//        int posMovesWeight = 0;//1000;
+//        int kingsGameWeight = 0;//10000;
+//        int regsGameWeight = 0;//10000;
+//        int advantageValueWeight = 0;//100;
 //        if (game.pieces[1].size() < 4 || game.pieces[0].size() < 4)
-//            advantageValueWeight = 10000;
+//            advantageValueWeight = 0;//10000;
+//
+//        if(playerNumber == 1) {
+//            kingDiffWeight = 0;//5000000;
+//            pawnDiffWeight = 0;//3000000;
+//            posValWeight = 0;//10000;
+//            pieceDiffWeight = 0;//1000;
+//            regDefWeight = 0;//10000;
+//            kingDefWeight = 0;//50000;
+//            sidesDefWeight = 0;//30000;
+//            cornDefWeight = 0;//20000;
+//            posMovesWeight = 0;//1000;
+//            kingsGameWeight = 0;//10000;
+//            regsGameWeight = 0;//10000;
+//            advantageValueWeight = 0;//100;
+//            if (game.pieces[1].size() < 4 || game.pieces[0].size() < 4)
+//                advantageValueWeight = 0;//10000;
+//
+//        } else {
+//            kingDiffWeight = 5000000;//5000000;
+//            pawnDiffWeight = 3000000;//3000000;
+//            posValWeight = 100000;//10000;
+//            pieceDiffWeight = 1000;//1000;
+//            regDefWeight = 0;//10000;
+//            kingDefWeight = 0;//50000;
+//            sidesDefWeight = 0;//30000;
+//            cornDefWeight = 0;//20000;
+//            posMovesWeight = 0;//1000;
+//            kingsGameWeight = 0;//10000;
+//            regsGameWeight = 0;//10000;
+//            advantageValueWeight = 10;//100;
+//            if (game.pieces[1].size() < 4 || game.pieces[0].size() < 4)
+//                advantageValueWeight = 0;//10000;
+//
+//        }
 //
 //        kingsDiff *= kingDiffWeight;
 //        piecesDiff *= pieceDiffWeight;
@@ -465,199 +650,201 @@ class Player {
 //        kingsGame *= kingsGameWeight;
 //        regsGame *= regsGameWeight;
 //
-//        int score = kingsDiff + pawnDiff + piecesDiff + posVal + regDef + kingDef + sidesDef + cornDef + posMoves + kingsGame + regsGame + advantageValue;
+//        int score = kingsDiff + pawnDiff + piecesDiff + posVal + regDef + kingDef + sidesDef + cornDef + posMoves + kingsGame + regsGame + advantageValue + ((new Random()).nextInt(18) - 9);
 //
 //        return playerNumber == 0 ? -score : score;
 //    }
-// --Commented out by Inspection STOP (11/5/17 9:54 PM)
 
 
-    private long evaluateState(Game game) {
-        int piecesValue = 0, positionValue = 0, differenceValue, advantageValue = 0, defenseValue = 0;
-        int playerAdvantage = -1;
-
-        if (game.pieces[1].size() > game.pieces[0].size())
-            playerAdvantage = 1;
-        else if (game.pieces[1].size() < game.pieces[0].size())
-            playerAdvantage = 0;
-
-        for (Location loc : game.pieces[1]) {
-            if (game.board[loc.row][loc.col] > 2) {
-                // Kings
-                piecesValue += 5;
-
-                if (isSafe(loc)) {
-                    defenseValue += 5;
-                }
-
-                // If behind in pieces and about to lose, retreat to double corners
-                if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) {
-                    if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0 || isCentralPieces(loc) || onMainDiagonal(loc) || onDoubleDiagonal(loc))) {
-                        advantageValue += 9;
-                    }
-                }
-                // Else: If player 1 has advantage, smaller bonus for being near the double corner (closer the better)
-                else if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) {
-
-                    // If Player 2 occupying top left corner
-                    if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 0)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 0))) {
-
-                        // Right on the corner
-                        if ((loc.row < 2) && (loc.col == 0)) {
-                            advantageValue += 7;
-                        }
-                        // One move away from the corner
-                        if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
-                            advantageValue += 5;
-                        }
-                        // Two moves away from the corner
-                        else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
-                            advantageValue += 3;
-                        } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
-                            advantageValue += 3;
-                        }
-
-                    }
-                    // If Player 2 occupying bottom right corner
-                    else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 0)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 0))) {
-
-                        // Right on the corner
-                        if ((loc.row > 5) && (loc.col == 3)) {
-                            advantageValue += 7;
-                        }
-                        // One move away from the corner
-                        if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
-                            advantageValue += 5;
-                        }
-                        // Two moves away from the corner
-                        else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
-                            advantageValue += 3;
-                        } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
-                            advantageValue += 3;
-                        }
-                    }
-                }
-            } else {
-                // Regular pieces
-                piecesValue += 3;
-                if (isSafe(loc))
-                    piecesValue += 3;
-
-                defenseValue += (isDefenderPieces(game, loc) * 3);
-
-                // Staying in back row to prevent opponent kinging
-                if (loc.row == 7) {
-                    positionValue += 9;
-                } else {
-                    // Closer to being king, row = 0, the better
-                    positionValue += (7 - loc.row);
-                }
-            }
-        }
-
-        for (Location loc : game.pieces[0]) {
-            if (game.board[loc.row][loc.col] > 2) {
-                // Kings
-                piecesValue -= 5;
-
-                if (isSafe(loc))
-                    defenseValue -= 5;
-
-                // If behind in pieces and about to lose, retreat to double corners
-                if ((playerAdvantage == 1) && (game.pieces[0].size() < 3 || isCentralPieces(loc) || onMainDiagonal(loc) || onDoubleDiagonal(loc))) {
-                    if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
-                        advantageValue -= 9;
-                    }
-                }
-                // Else: If player 2 has advantage, smaller bonus for being near the double corner (closer the better)
-                else if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) {
-                    // If Player 1 occupying top left corner
-                    if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 1)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 1))) {
-
-                        // Right on the corner
-                        if ((loc.row < 2) && (loc.col == 0)) {
-                            advantageValue -= 7;
-                        }
-                        // One move away from the corner
-                        if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
-                            advantageValue -= 5;
-                        }
-                        // Two moves away from the corner
-                        else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
-                            advantageValue -= 3;
-                        } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
-                            advantageValue -= 3;
-                        }
-
-                    }
-                    // If Player 1 occupying bottom right corner
-                    else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 1)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 1))) {
-
-                        // Right on the corner
-                        if ((loc.row > 5) && (loc.col == 3)) {
-                            advantageValue -= 7;
-                        }
-                        // One move away from the corner
-                        if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
-                            advantageValue -= 5;
-                        }
-                        // Two moves away from the corner
-                        else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
-                            advantageValue -= 3;
-                        } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
-                            advantageValue -= 3;
-                        }
-                    }
-                }
-            } else {
-                // Regular pieces
-                piecesValue -= 3;
-
-                if (isSafe(loc))
-                    defenseValue -= 3;
-
-                defenseValue -= (isDefenderPieces(game, loc) * 3);
-
-                // Staying in back row to prevent opponent kinging
-                if (loc.row == 0) {
-                    positionValue -= 9;
-                } else {
-                    // Closer to being king, row = 7, the better
-                    positionValue -= loc.row;
-                }
-            }
-        }
-
-        differenceValue = (game.pieces[1].size() - game.pieces[0].size());
-
-        int score = 0;
-        score = score * 100 + piecesValue;
-        score = score * 100 + positionValue;
-        score = score * 100 + differenceValue;
-        score = score * 100 + advantageValue;
-        score = score * 100 + defenseValue;
-        score = score * 100 + ((new Random()).nextInt(50) - 25);
-
-        return (playerNumber == 0 ? -score : score);
-    }
+//    private long evaluateState(Game game) {
+//        int piecesValue = 0, positionValue = 0, differenceValue, advantageValue = 0, defenseValue = 0;
+//        int playerAdvantage = -1;
+//
+//        if (game.pieces[1].size() > game.pieces[0].size())
+//            playerAdvantage = 1;
+//        else if (game.pieces[1].size() < game.pieces[0].size())
+//            playerAdvantage = 0;
+//
+//        for (Location loc : game.pieces[1]) {
+//            if (game.board[loc.row][loc.col] > 2) {
+//                // Kings
+//                piecesValue += 5;
+//
+//                if (isSafe(loc)) {
+//                    defenseValue += 5;
+//                }
+//
+//                // If behind in pieces and about to lose, retreat to double corners
+//                if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) {
+//                    if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0 || isCentralPieces(loc) || onMainDiagonal(loc) || onDoubleDiagonal(loc))) {
+//                        advantageValue += 9;
+//                    }
+//                }
+//                // Else: If player 1 has advantage, smaller bonus for being near the double corner (closer the better)
+//                else if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) {
+//
+//                    // If Player 2 occupying top left corner
+//                    if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 0)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 0))) {
+//
+//                        // Right on the corner
+//                        if ((loc.row < 2) && (loc.col == 0)) {
+//                            advantageValue += 7;
+//                        }
+//                        // One move away from the corner
+//                        if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
+//                            advantageValue += 5;
+//                        }
+//                        // Two moves away from the corner
+//                        else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
+//                            advantageValue += 3;
+//                        } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
+//                            advantageValue += 3;
+//                        }
+//
+//                    }
+//                    // If Player 2 occupying bottom right corner
+//                    else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 0)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 0))) {
+//
+//                        // Right on the corner
+//                        if ((loc.row > 5) && (loc.col == 3)) {
+//                            advantageValue += 7;
+//                        }
+//                        // One move away from the corner
+//                        if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
+//                            advantageValue += 5;
+//                        }
+//                        // Two moves away from the corner
+//                        else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
+//                            advantageValue += 3;
+//                        } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
+//                            advantageValue += 3;
+//                        }
+//                    }
+//                }
+//            } else {
+//                // Regular pieces
+//                piecesValue += 3;
+//                if (isSafe(loc))
+//                    piecesValue += 3;
+//
+//                defenseValue += (isDefenderPieces(game, loc) * 3);
+//
+//                // Staying in back row to prevent opponent kinging
+//                if (loc.row == 7) {
+//                    positionValue += 9;
+//                } else {
+//                    // Closer to being king, row = 0, the better
+//                    positionValue += (7 - loc.row);
+//                }
+//            }
+//        }
+//
+//        for (Location loc : game.pieces[0]) {
+//            if (game.board[loc.row][loc.col] > 2) {
+//                // Kings
+//                piecesValue -= 5;
+//
+//                if (isSafe(loc))
+//                    defenseValue -= 5;
+//
+//                // If behind in pieces and about to lose, retreat to double corners
+//                if ((playerAdvantage == 1) && (game.pieces[0].size() < 3 || isCentralPieces(loc) || onMainDiagonal(loc) || onDoubleDiagonal(loc))) {
+//                    if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
+//                        advantageValue -= 9;
+//                    }
+//                }
+//                // Else: If player 2 has advantage, smaller bonus for being near the double corner (closer the better)
+//                else if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) {
+//                    // If Player 1 occupying top left corner
+//                    if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 1)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 1))) {
+//
+//                        // Right on the corner
+//                        if ((loc.row < 2) && (loc.col == 0)) {
+//                            advantageValue -= 7;
+//                        }
+//                        // One move away from the corner
+//                        if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
+//                            advantageValue -= 5;
+//                        }
+//                        // Two moves away from the corner
+//                        else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
+//                            advantageValue -= 3;
+//                        } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
+//                            advantageValue -= 3;
+//                        }
+//
+//                    }
+//                    // If Player 1 occupying bottom right corner
+//                    else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 1)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 1))) {
+//
+//                        // Right on the corner
+//                        if ((loc.row > 5) && (loc.col == 3)) {
+//                            advantageValue -= 7;
+//                        }
+//                        // One move away from the corner
+//                        if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
+//                            advantageValue -= 5;
+//                        }
+//                        // Two moves away from the corner
+//                        else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
+//                            advantageValue -= 3;
+//                        } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
+//                            advantageValue -= 3;
+//                        }
+//                    }
+//                }
+//            } else {
+//                // Regular pieces
+//                piecesValue -= 3;
+//
+//                if (isSafe(loc))
+//                    defenseValue -= 3;
+//
+//                defenseValue -= (isDefenderPieces(game, loc) * 3);
+//
+//                // Staying in back row to prevent opponent kinging
+//                if (loc.row == 0) {
+//                    positionValue -= 9;
+//                } else {
+//                    // Closer to being king, row = 7, the better
+//                    positionValue -= loc.row;
+//                }
+//            }
+//        }
+//
+//        differenceValue = (game.pieces[1].size() - game.pieces[0].size());
+//
+//        int score = 0;
+//        score = score * 100 + piecesValue;
+//        score = score * 100 + positionValue;
+//        score = score * 100 + differenceValue;
+//        score = score * 100 + advantageValue;
+//        score = score * 100 + defenseValue;
+//        score = score * 100 + ((new Random()).nextInt(50) - 25);
+//
+//        return (playerNumber == 0 ? -score : score);
+//    }
 
 
     private long alphaBetaPrune(Game gameNode, int depth, long alpha, long beta) {
 
         if (!outOfTime) {
 
-            if ((new Date()).getTime() - startTimeMS > .998 * Constants.timeLimit) {
+            if ((new Date()).getTime() - startTimeMS > 0.998 * Constants.timeLimit) {
                 outOfTime = true;
                 return 0;
             }
 
             gameNode.getNextMoves();
 
-            if (isTerminalState(gameNode))
-                return utilityFunction(gameNode, depth);
-
-            if (depth == 0)
+            // Check for terminal state: if either player has 0 moves = someone wins, or if tie, and return that utility score
+            if (isTerminalState(gameNode)) {
+                return (utilityFunction(gameNode, depth));
+            }
+            if (depth == 0) {
+                //cout << "\t\tReturning " << this->evaluateState(gameNode) << endl;
                 return evaluateState(gameNode);
+            }
 
             if (gameNode.currTurn == 1) {
                 long bestValue = alpha;
@@ -665,39 +852,52 @@ class Player {
                 for (int child = 1; child <= gameNode.availableMoves.size(); child++) {
                     Game childGame = gameNode.clone(child);
                     childGame.chooseMove(1);
-                    long ret = alphaBetaPrune(childGame, depth - 1, bestValue, beta);
+                    long ret = alphaBetaPrune(childGame, (depth - 1), bestValue, beta);
                     if (ret > bestValue) {
                         bestValue = ret;
-                        if (depth == maxDepth)
+                        if (depth == maxDepth) {
                             bestMove = child;
-                    } else if ((ret == bestValue) && (depth == maxDepth))
-                        if ((new Random()).nextBoolean())
+                        }
+                    } else if ((ret == bestValue) && (depth == maxDepth)) {
+                        if ((new Random()).nextBoolean()) {
                             bestMove = child;
-                    if (beta <= bestValue)//Beta prune
+                        }
+                    }
+                    if (beta <= bestValue) {
+                        // Beta cut-off = prune remaining branches
                         break;
+                    }
                 }
                 return bestValue;
             } else {
                 long bestValue = beta;
 
                 for (int child = 1; child <= gameNode.availableMoves.size(); child++) {
+                    //cout << "Depth = " << depth << ", child = " << child << " of " << gameNode.numMoves << ", alpha = " << alpha << ", beta = " << beta << endl;
                     Game childGame = gameNode.clone(child);
                     childGame.chooseMove(1);
 
-                    long ret = alphaBetaPrune(childGame, depth - 1, alpha, bestValue);
+                    long ret = alphaBetaPrune(childGame, (depth - 1), alpha, bestValue);
                     if (ret < bestValue) {
                         bestValue = ret;
-                        if (depth == maxDepth)
+                        if (depth == maxDepth) {
                             bestMove = child;
-                    } else if ((ret == bestValue) && (depth == maxDepth))
-                        if ((new Random()).nextBoolean())
+                        }
+                    } else if ((ret == bestValue) && (depth == maxDepth)) {
+                        if ((new Random()).nextBoolean()) {
                             bestMove = child;
-                    if (bestValue <= alpha)// Alpha prune
+                        }
+                    }
+                    if (bestValue <= alpha) {
+                        // Alpha cut-off = prune remaining branches
                         break;
-
+                    }
                 }
                 return bestValue;
             }
-        } else return 0;
+        } else {
+            return 0;
+        }
+
     }
 }
