@@ -6,7 +6,7 @@ import java.util.Locale;
 
 class Game {
 
-    final int[][] board = new int[8][8];
+    final int[][] board = new int[8][4];
     final ArrayList<Location>[] pieces = new ArrayList[2];
     final ArrayList<Move> availableMoves = new ArrayList<>(Constants.maxMoves);
     int currTurn, numWalkMoves;
@@ -323,12 +323,6 @@ class Game {
 
         }
         return builder.toString();
-    }
-
-    int getPieceAtLocation(Location loc) {
-        if (loc == null)
-            return -1;
-        return this.board[loc.row][loc.col];
     }
 
 }
