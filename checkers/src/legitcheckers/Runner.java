@@ -23,12 +23,12 @@ class Runner {
 
         System.out.println("\u2503   Radhakrishnan Thiyagarajan   \u2503");
         System.out.println("\u2503    Artificial Intelligence     \u2503");
-        System.out.println("\u2503     Professor Carl Sable       \u2503\n\n\n");
+        System.out.println("\u2503     Professor Carl Sable       \u2503");
 
         System.out.print("\u2517");
         for (int ii = 0; ii < 32; ii++)
             System.out.print("\u2501");
-        System.out.println("\u251B");
+        System.out.println("\u251B\n\n");
 
 
         String userChoice;
