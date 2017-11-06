@@ -16,6 +16,7 @@ class Runner {
     private int playerTwoMode;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, InterruptedException {
+        System.out.println("\033]11;#000000\007");
         System.out.print("\033[1;97m\u250F");
         for (int ii = 0; ii < 32; ii++)
             System.out.print("\u2501");
