@@ -1,3 +1,10 @@
+/*
+ * Krishna Thiyagarajan
+ * ECE-469: Artificial Intelligence
+ * Professor Sable
+ * November 6, 2017
+ */
+
 package legitcheckers;
 
 import java.util.ArrayList;

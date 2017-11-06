@@ -1,3 +1,10 @@
+/*
+ * Krishna Thiyagarajan
+ * ECE-469: Artificial Intelligence
+ * Professor Sable
+ * November 6, 2017
+ */
+
 package legitcheckers;
 
 import java.util.Date;
@@ -76,7 +83,6 @@ class Player {
     }
 
     private long evaluateState(Game game) {
-        int score;
         int pieceDiff = 0, posDiff = 0, endGameValue = 0;
         int adv = -1;
 
@@ -190,12 +196,8 @@ class Player {
             }
         }
 
-        pieceDiff = pieceDiff * 1000000;
-        posDiff = posDiff * 100000;
-
         int differenceValue = (game.pieces[1].size() - game.pieces[0].size()) * 1000;
-        endGameValue = endGameValue * 10;
-        score = pieceDiff + posDiff + differenceValue + endGameValue;
+        long score = pieceDiff * 1000000 + posDiff * 100000 + differenceValue * 1000 + endGameValue * 10 + ((new Random()).nextInt(10) - 5);
         return playerNumber == 1 ? score : -score;
     }
 
