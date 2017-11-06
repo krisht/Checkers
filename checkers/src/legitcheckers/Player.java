@@ -200,8 +200,8 @@ class Player {
         }
 
         int differenceValue = (game.pieces[1].size() - game.pieces[0].size()) * 1000;
-        long score = pieceDiff * 1000000 + posDiff * 100000 + differenceValue * 1000 + endGameValue * 10 + ((new Random()).nextInt(10) - 5);
-        return playerNumber == 1 ? score : -score;
+        long score = pieceDiff * 1000000 + posDiff * 100000 + differenceValue * 1000 + endGameValue * 10;
+        return playerNumber == 1 ? score : score;
     }
 
     private long alphaBetaPrune(Game gameNode, int depth, long alpha, long beta) {
