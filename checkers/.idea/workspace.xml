@@ -6,11 +6,28 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d57c25e2-a5b3-4a59-91e8-1f7e206046c3" name="Default" comment="Done?">
+    <list default="true" id="d57c25e2-a5b3-4a59-91e8-1f7e206046c3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ref/AnotherCheckersStrat.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ref/CheckersStrat2.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ref/PracticallySolvingCheckers.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ref/checkers2.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../.idea/Checkers.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/META-INF/MANIFEST.MF" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/Makefile" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/legitcheckers/board1.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/legitcheckers/board10.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/legitcheckers/board2.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/legitcheckers/board3.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/legitcheckers/board4.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/legitcheckers/board5.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/legitcheckers/board6.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/legitcheckers/board7.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/legitcheckers/board8.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/checkers/legitcheckers/board9.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/legitcheckers/Player.java" afterPath="$PROJECT_DIR$/src/legitcheckers/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/legitcheckers/Runner.java" afterPath="$PROJECT_DIR$/src/legitcheckers/Runner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/legitcheckers/board3.txt" afterPath="$PROJECT_DIR$/src/legitcheckers/board3.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +42,8 @@
       <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/legitcheckers/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="214" column="0" lean-forward="true" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+            <state relative-caret-position="216">
+              <caret line="219" column="3" lean-forward="false" selection-start-line="219" selection-start-column="3" selection-end-line="219" selection-end-column="3" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -47,8 +64,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/legitcheckers/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="236" column="5" lean-forward="true" selection-start-line="236" selection-start-column="5" selection-end-line="236" selection-end-column="5" />
+            <state relative-caret-position="3744">
+              <caret line="236" column="5" lean-forward="false" selection-start-line="236" selection-start-column="5" selection-end-line="236" selection-end-column="5" />
               <folding>
                 <element signature="e#0#15869#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -64,8 +81,8 @@
       <file leaf-file-name="Runner.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/legitcheckers/Runner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+            <state relative-caret-position="1692">
+              <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -76,7 +93,7 @@
       <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/legitcheckers/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
+            <state relative-caret-position="810">
               <caret line="50" column="44" lean-forward="false" selection-start-line="50" selection-start-column="44" selection-end-line="50" selection-end-column="44" />
               <folding>
                 <element signature="e#4353#4354#0" expanded="true" />
@@ -159,11 +176,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="4">
     <option name="x" value="988" />
-    <option name="y" value="-4" />
-    <option name="width" value="930" />
-    <option name="height" value="1084" />
+    <option name="y" value="24" />
+    <option name="width" value="932" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -181,10 +198,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="AndroidView" />
       <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -356,7 +373,8 @@
       <workItem from="1509937259685" duration="357000" />
       <workItem from="1509937787863" duration="10021000" />
       <workItem from="1509948073688" duration="2680000" />
-      <workItem from="1509952877107" duration="6908000" />
+      <workItem from="1509952877107" duration="7294000" />
+      <workItem from="1509960494093" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="This is absolutely garbo">
       <created>1509937420763</created>
@@ -414,30 +432,36 @@
       <option name="project" value="LOCAL" />
       <updated>1509954622249</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Done! Implementing some randomness would be nice">
+      <created>1509960012983</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1509960012983</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="115532000" />
+    <option name="totallyTimeSpent" value="115930000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="57" y="-4" width="1863" height="1084" extended-state="6" />
+    <frame x="988" y="24" width="932" height="1056" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32924336" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842106" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11218465" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37768242" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -450,6 +474,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33684212" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32924336" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -465,7 +490,8 @@
     <MESSAGE value="Made background turn black." />
     <MESSAGE value="Voila" />
     <MESSAGE value="Done?" />
-    <option name="LAST_COMMIT_MESSAGE" value="Done?" />
+    <MESSAGE value="Done! Implementing some randomness would be nice" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done! Implementing some randomness would be nice" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -477,6 +503,60 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/legitcheckers/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/legitcheckers/board3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/legitcheckers/Runner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1692">
+          <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/legitcheckers/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3744">
+          <caret line="236" column="5" lean-forward="true" selection-start-line="236" selection-start-column="5" selection-end-line="236" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#15869#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="method#Game#0;class#Game#0" expanded="false" />
+            <element signature="method#takePiece#0;class#Game#0" expanded="false" />
+            <element signature="method#nameSquare#0;class#Game#0" expanded="false" />
+            <element signature="method#getWalks#0;class#Game#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/legitcheckers/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="50" column="44" lean-forward="false" selection-start-line="50" selection-start-column="44" selection-end-line="50" selection-end-column="44" />
+          <folding>
+            <element signature="e#4353#4354#0" expanded="true" />
+            <element signature="e#4407#4408#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/legitcheckers/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -792,8 +872,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/legitcheckers/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="236" column="5" lean-forward="true" selection-start-line="236" selection-start-column="5" selection-end-line="236" selection-end-column="5" />
+        <state relative-caret-position="3744">
+          <caret line="236" column="5" lean-forward="false" selection-start-line="236" selection-start-column="5" selection-end-line="236" selection-end-column="5" />
           <folding>
             <element signature="e#0#15869#0" expanded="true" />
             <element signature="imports" expanded="true" />
@@ -815,7 +895,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/legitcheckers/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
+        <state relative-caret-position="810">
           <caret line="50" column="44" lean-forward="false" selection-start-line="50" selection-start-column="44" selection-end-line="50" selection-end-column="44" />
           <folding>
             <element signature="e#4353#4354#0" expanded="true" />
@@ -826,8 +906,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/legitcheckers/Runner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+        <state relative-caret-position="1692">
+          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -836,8 +916,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/legitcheckers/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="214" column="0" lean-forward="true" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+        <state relative-caret-position="216">
+          <caret line="219" column="3" lean-forward="false" selection-start-line="219" selection-start-column="3" selection-end-line="219" selection-end-column="3" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
