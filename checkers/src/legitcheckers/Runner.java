@@ -21,6 +21,7 @@ class Runner {
     private boolean staleMate = false;
     private int playerOneMode;
     private int playerTwoMode;
+    static int step = 0;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, InterruptedException {
         System.out.println("\033]11;#000000\007");
@@ -116,9 +117,6 @@ class Runner {
                             break;
                     }
 
-//                    moveChoice = (new Random()).nextInt(runner.game.availableMoves.size()) + 1;
-
-
                     Constants.clearScreen();
                     System.out.print("Previous Move:\nBlack Player chose move " + moveChoice + " \n\n\n");
                     runner.game.chooseMove(moveChoice);
@@ -157,8 +155,6 @@ class Runner {
                         if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
                             break;
                     }
-
-//                    moveChoice = (new Random()).nextInt(runner.game.availableMoves.size()) + 1;
 
                     Constants.clearScreen();
                     System.out.print("Previous Move:\nRed Player chose move " + moveChoice + " \n\n\n");
