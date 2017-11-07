@@ -20,15 +20,6 @@ class Player {
         this.playerNumber = playerNumber;
     }
 
-    int distance(Location a, Location b) {
-        int aRow = a.row;
-        int bRow = b.row;
-        int aCol = aRow % 2 == 0 ? 2 * a.col + 1 : 2 * a.col;
-        int bCol = bRow % 2 == 0 ? 2 * b.col + 1 : 2 * b.col;
-        return Math.max(Math.abs(aCol - bCol), Math.abs(aRow - bRow));
-    }
-
-
     int chooseAIMove(Game game) {
         bestMove = -1;
 
@@ -95,142 +86,136 @@ class Player {
         return game.currTurn == 1 ? Constants.minVal * (depth + 1) : Constants.maxVal * (depth + 1);
     }
 
-    private long evaluateState2(Game game) {
-
-    }
-
     private long evaluateState(Game game) {
-        int piecesDiff = 0, posVal = 0, endGame = 0;
-        int adv = -1;
+        long pVal = 0, posVal = 0, advVal = 0;
+        long pAdv = -1;
 
         if (game.pieces[1].size() > game.pieces[0].size())
-            adv = 1;
+            pAdv = 1;
         else if (game.pieces[1].size() < game.pieces[0].size())
-            adv = 0;
+            pAdv = 0;
 
         for (Location loc : game.pieces[1]) {
-            if (game.board[loc.row][loc.col] > 2) {
+            if (game.board[loc.col][loc.col] > 2) {
 
-                piecesDiff += 5;
+                pVal += 5;
 
 
-                if ((adv == 0) && (game.pieces[1].size() < 3)) {
-                    if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
-                        endGame += 9;
+                if ((pAdv == 0) && (game.pieces[1].size() < 3)) {
+                    if ((loc.col > 5 && loc.col == 3) || (loc.col < 2 && loc.col == 0)) {
+                        advVal += 9;
                     }
-                } else if ((adv == 1) && (game.pieces[0].size() < 3)) {
+                } else if ((pAdv == 1) && (game.pieces[0].size() < 3)) {
 
                     if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 0)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 0))) {
 
 
-                        if ((loc.row < 2) && (loc.col == 0)) {
-                            endGame += 7;
+                        if ((loc.col < 2) && (loc.col == 0)) {
+                            advVal += 7;
                         }
 
-                        if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
-                            endGame += 5;
-                        } else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
-                            endGame += 3;
-                        } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
-                            endGame += 3;
+                        if ((loc.col == 2 && loc.col == 0) || (loc.col == 1 && loc.col == 1)) {
+                            advVal += 5;
+                        } else if ((loc.col == 3 && loc.col == 0) || (loc.col == 3 && loc.col == 1)) {
+                            advVal += 3;
+                        } else if ((loc.col == 2 && loc.col == 1) || (loc.col == 0 && loc.col == 1)) {
+                            advVal += 3;
                         }
 
                     } else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 0)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 0))) {
 
 
-                        if ((loc.row > 5) && (loc.col == 3)) {
-                            endGame += 7;
+                        if ((loc.col > 5) && (loc.col == 3)) {
+                            advVal += 7;
                         }
 
-                        if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
-                            endGame += 5;
-                        } else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
-                            endGame += 3;
-                        } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
-                            endGame += 3;
+                        if ((loc.col == 6 && loc.col == 2) || (loc.col == 5 && loc.col == 3)) {
+                            advVal += 5;
+                        } else if ((loc.col == 4 && loc.col == 3) || (loc.col == 4 && loc.col == 2)) {
+                            advVal += 3;
+                        } else if ((loc.col == 5 && loc.col == 2) || (loc.col == 7 && loc.col == 2)) {
+                            advVal += 3;
                         }
                     }
 
 
                 }
             } else {
-                piecesDiff += 3;
 
-                if (loc.row == 7) {
+                pVal += 3;
+
+
+                if (loc.col == 7) {
                     posVal += 9;
                 } else {
-                    posVal += (7 - loc.row);
+
+                    posVal += (7 - loc.col);
                 }
             }
         }
 
         for (Location loc : game.pieces[0]) {
-            if (game.board[loc.row][loc.col] > 2) {
+            if (game.board[loc.col][loc.col] > 2) {
 
-                piecesDiff -= 5;
+                pVal -= 5;
 
 
-                if ((adv == 1) && (game.pieces[0].size() < 3)) {
-                    if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
-                        endGame -= 9;
+                if ((pAdv == 1) && (game.pieces[0].size() < 3)) {
+                    if ((loc.col > 5 && loc.col == 3) || (loc.col < 2 && loc.col == 0)) {
+                        advVal -= 9;
                     }
-                } else if ((adv == 0) && (game.pieces[1].size() < 3)) {
+                } else if ((pAdv == 0) && (game.pieces[1].size() < 3)) {
 
                     if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 1)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 1))) {
 
 
-                        if ((loc.row < 2) && (loc.col == 0)) {
-                            endGame -= 7;
+                        if ((loc.col < 2) && (loc.col == 0)) {
+                            advVal -= 7;
                         }
 
-                        if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
-                            endGame -= 5;
-                        } else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
-                            endGame -= 3;
-                        } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
-                            endGame -= 3;
+                        if ((loc.col == 2 && loc.col == 0) || (loc.col == 1 && loc.col == 1)) {
+                            advVal -= 5;
+                        } else if ((loc.col == 3 && loc.col == 0) || (loc.col == 3 && loc.col == 1)) {
+                            advVal -= 3;
+                        } else if ((loc.col == 2 && loc.col == 1) || (loc.col == 0 && loc.col == 1)) {
+                            advVal -= 3;
                         }
 
                     } else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 1)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 1))) {
 
 
-                        if ((loc.row > 5) && (loc.col == 3)) {
-                            endGame -= 7;
+                        if ((loc.col > 5) && (loc.col == 3)) {
+                            advVal -= 7;
                         }
 
-                        if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
-                            endGame -= 5;
-                        } else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
-                            endGame -= 3;
-                        } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
-                            endGame -= 3;
+                        if ((loc.col == 6 && loc.col == 2) || (loc.col == 5 && loc.col == 3)) {
+                            advVal -= 5;
+                        } else if ((loc.col == 4 && loc.col == 3) || (loc.col == 4 && loc.col == 2)) {
+                            advVal -= 3;
+                        } else if ((loc.col == 5 && loc.col == 2) || (loc.col == 7 && loc.col == 2)) {
+                            advVal -= 3;
                         }
                     }
                 }
             } else {
-
-                piecesDiff -= 3;
-
-
-                if (loc.row == 0) {
+                pVal -= 3;
+                if (loc.col == 0) {
                     posVal -= 9;
                 } else {
-
-                    posVal -= loc.row;
+                    posVal -= loc.col;
                 }
             }
         }
 
-        piecesDiff = piecesDiff * 1000000;
+        pVal = pVal * 1000000;
         posVal = posVal * 100000;
-        int differenceValue = (game.pieces[1].size() - game.pieces[0].size()) * 1000;
-        endGame = endGame * 100;
-        return piecesDiff + posVal + differenceValue + endGame;
+        long diffVal = (game.pieces[1].size() - game.pieces[0].size()) * 1000;
+        advVal = advVal * 10;
+        return pVal + posVal + diffVal + advVal;
     }
 
     private long alphaBetaPrune(Game gameNode, int depth, long alpha, long beta) {
         if (!outOfTime) {
-
             if ((new Date()).getTime() - startTimeMS > 0.998 * Constants.timeLimit) {
                 outOfTime = true;
                 return 0;
@@ -238,12 +223,12 @@ class Player {
 
             gameNode.getNextMoves();
 
-            if (isTerminalState(gameNode)) {
+            // Check for terminal state: if either player has 0 moves = someone wins, or if tie, and return that utility score
+            if (isTerminalState(gameNode))
                 return (utilityFunction(gameNode, depth));
-            }
-            if (depth == 0) {
+
+            if (depth == 0)
                 return evaluateState(gameNode);
-            }
 
             if (gameNode.currTurn == 1) {
                 long bestValue = alpha;
@@ -263,6 +248,7 @@ class Player {
                         }
                     }
                     if (beta <= bestValue) {
+                        // Beta cut-off = prune remaining branches
                         break;
                     }
                 }
@@ -271,6 +257,7 @@ class Player {
                 long bestValue = beta;
 
                 for (int child = 1; child <= gameNode.availableMoves.size(); child++) {
+                    //cout << "Depth = " << depth << ", child = " << child << " of " << gameNode.numMoves << ", alpha = " << alpha << ", beta = " << beta << endl;
                     Game childGame = gameNode.clone(child);
                     childGame.chooseMove(1);
 
@@ -286,6 +273,7 @@ class Player {
                         }
                     }
                     if (bestValue <= alpha) {
+                        // Alpha cut-off = prune remaining branches
                         break;
                     }
                 }
@@ -294,6 +282,6 @@ class Player {
         } else {
             return 0;
         }
-
     }
+
 }

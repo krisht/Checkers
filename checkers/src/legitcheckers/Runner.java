@@ -21,7 +21,6 @@ class Runner {
     private boolean staleMate = false;
     private int playerOneMode;
     private int playerTwoMode;
-    static int step = 0;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, InterruptedException {
         System.out.println("\033]11;#000000\007");
