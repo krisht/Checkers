@@ -84,6 +84,8 @@ class Runner {
         userChoice = scan.nextLine();
 
         if (userChoice.length() != 0) {
+            if (0 < Integer.parseInt(userChoice) && Integer.parseInt(userChoice) < 11)
+                userChoice = "./legitcheckers/board" + Integer.parseInt(userChoice) + ".txt";
             if (runner.loadGame(userChoice))
                 System.out.println("Successfully loaded in game! Press enter to continue...");
             else {
@@ -92,6 +94,10 @@ class Runner {
             }
             scan.nextLine();
         }
+
+        Constants.clearScreen();
+
+        System.out.println("New checkers game starting!\n\n\n");
 
         while (!(runner.gameOver || runner.staleMate)) {
 
@@ -118,18 +124,19 @@ class Runner {
 
                     Constants.clearScreen();
                     System.out.print("Previous Move:\nBlack Player chose move " + moveChoice + " \n\n\n");
-                    runner.game.chooseMove(moveChoice);
+                    runner.game.chooseMove(moveChoice, 0);
 
                 } else if (runner.game.availableMoves.size() > 0) {
                     //Player One is an AI
                     if (runner.game.availableMoves.size() > 1) {
                         System.out.print("Black's AI is searching for an optimal move...\n");
                         moveChoice = runner.playerOne.chooseAIMove(runner.game);
-                        runner.game.chooseMove(moveChoice);
+                        runner.game.getNextMoves();
+                        runner.game.chooseMove(moveChoice, 1);
                     } else {
                         Constants.clearScreen();
                         System.out.print("Previous Move:\nBlack chose only possible move... \n\n\n");
-                        runner.game.chooseMove(1);
+                        runner.game.chooseMove(1, 0);
                     }
 
                 } else {
@@ -158,18 +165,19 @@ class Runner {
                     Constants.clearScreen();
                     System.out.print("Previous Move:\nRed Player chose move " + moveChoice + " \n\n\n");
 
-                    runner.game.chooseMove(moveChoice);
+                    runner.game.chooseMove(moveChoice, 0);
 
                 } else if (runner.game.availableMoves.size() > 0) {
                     //Player Two is an AI
                     if (runner.game.availableMoves.size() > 1) {
                         System.out.print("Red's AI is searching for an optimal move...\n");
+                        runner.game.getNextMoves();
                         moveChoice = runner.playerTwo.chooseAIMove(runner.game);
-                        runner.game.chooseMove(moveChoice);
+                        runner.game.chooseMove(moveChoice, 1);
                     } else {
                         Constants.clearScreen();
                         System.out.print("Previous Move:\nRed chose only possible move... \n\n\n");
-                        runner.game.chooseMove(1);
+                        runner.game.chooseMove(1, 0);
                     }
 
                 } else {

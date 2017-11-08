@@ -54,15 +54,13 @@ class Game {
     }
 
     private boolean takePiece(Location captured) {
-        for (int ii = 0; ii < pieces[1 - currTurn].size(); ii++)
-            if (pieces[1 - currTurn].get(ii).row == captured.row && pieces[1 - currTurn].get(ii).col == captured.col) {
-                pieces[1 - currTurn].remove(ii);
-                return true;
-            }
-        return false;
+        return pieces[1 - currTurn].remove(captured);
     }
 
-    void chooseMove(int choice) {
+    void chooseMove(int choice, int blah) {
+        if (choice > availableMoves.size() && blah == 1) {
+            System.out.println("Choice: " + choice + ", Moves: " + availableMoves);
+        }
         Move move = availableMoves.get(choice - 1);
         Location pieceNum = pieces[currTurn].get(move.startPiece);
         int origPiece = board[pieceNum.row][pieceNum.col];
@@ -133,9 +131,9 @@ class Game {
             Location startPosition = pieces[currTurn].get(newMove.startPiece);
             Location endPos = setEndLocation(startPosition, dir, 1);
 
-            if (endPos != null && endPos.col >= 0)
+            if (endPos != null && endPos.col >= 0 && endPos.col <= 3)
                 if (board[endPos.row][endPos.col] == Constants.emptyPlayer && !onlyShowJumps) {
-                    newMove.end = endPos;
+                    newMove.end = new Location(endPos);
                     addMove(newMove, Constants.walkMove);
                 }
         }
@@ -174,7 +172,6 @@ class Game {
                                     addMove(newMove, Constants.jumpMove);
 
                             }
-
                     }
                 }
 
@@ -182,12 +179,12 @@ class Game {
         return !extraJump;
     }
 
-    private void addMove(Move move, int type) {
+    private void addMove(Move newMove, int type) {
         if (type == Constants.jumpMove && !onlyShowJumps) {
             onlyShowJumps = true;
             availableMoves.clear();
         }
-        availableMoves.add(move);
+        availableMoves.add(newMove);
     }
 
     private Location setEndLocation(Location start, int dir, int dist) {
@@ -200,38 +197,43 @@ class Game {
             case Constants.NE:
                 if (start.row > dist - 1) {
                     end.row = start.row - dist;
-                    if ((start.row % 2 == 1) && (dist == 1))
+                    if ((start.row % 2 == 1) && (dist == 1)) {
                         end.col = start.col;
-                    else if (start.col < 3)
+                    } else if (start.col < 3) {
                         end.col = start.col + 1;
+                    }
                 }
                 break;
             case Constants.NW:
                 if (start.row > dist - 1) {
                     end.row = start.row - dist;
-                    if ((start.row % 2 == 0) && (dist == 1))
+                    if ((start.row % 2 == 0) && (dist == 1)) {
                         end.col = start.col;
-                    else if (start.col > 0)
+                    } else if (start.col > 0) {
                         end.col = start.col - 1;
+                    }
                 }
                 break;
             case Constants.SE:
                 if (start.row + dist < 8) {
                     end.row = start.row + dist;
-                    if ((start.row % 2 == 1) && (dist == 1))
+                    if ((start.row % 2 == 1) && (dist == 1)) {
                         end.col = start.col;
-                    else if (start.col < 3)
+                    } else if (start.col < 3) {
                         end.col = start.col + 1;
+                    }
                 }
                 break;
             case Constants.SW:
                 if (start.row + dist < 8) {
                     end.row = start.row + dist;
-                    if ((start.row % 2 == 0) && (dist == 1))
+                    if ((start.row % 2 == 0) && (dist == 1)) {
                         end.col = start.col;
-                    else if (start.col > 0)
+                    } else if (start.col > 0) {
                         end.col = start.col - 1;
+                    }
                 }
+                break;
         }
         return end;
     }
@@ -239,7 +241,7 @@ class Game {
 
     void printNextMoves() {
         getNextMoves();
-        System.out.println(String.format("There have been %3d moves so far. Scroll up to see previous moves.", ++moveCount));
+        System.out.println(String.format("There have been %3d moves so far. Scroll up to see previous moves.", moveCount++));
         System.out.println((currTurn == 0 ? "Red   Player" : "Black Player") + " has a total of " + availableMoves.size() + " moves available. " + (Constants.movesToDraw - numWalkMoves) + " moves until draw.");
 
         for (int ii = 0; ii < availableMoves.size(); ii++) {
@@ -260,107 +262,115 @@ class Game {
         System.out.println("\033[1;97mBlack Pawn: " + colorPieces(Constants.regularPlayerOne, 0, 1) + "\033[1;97m\tRed Pawn: " + colorPieces(Constants.regularPlayerTwo, 0, 1) + "\n\n\033[1;97m");
     }
 
-
-    Game clone(int childNum) {
-        Game dest = new Game(this.currTurn);
-
-        for (int ii = 0; ii < 8; ii++)
-            System.arraycopy(this.board[ii], 0, dest.board[ii], 0, this.board[ii].length);
-
-        for (int ii = 0; ii < 2; ii++)
-            for (int jj = 0; jj < this.pieces[ii].size(); jj++)
-                dest.pieces[ii].add(new Location(this.pieces[ii].get(jj)));
-
-        Move tempMove = new Move();
-
-        tempMove.startPiece = this.availableMoves.get(childNum - 1).startPiece;
-        tempMove.end = new Location(this.availableMoves.get(childNum - 1).end);
-        dest.availableMoves.clear();
-        dest.availableMoves.add(tempMove);
-
-        for (int ii = 0; ii < this.availableMoves.get(childNum - 1).jumpedLocations.size(); ii++) {
-            Location loc = this.availableMoves.get(childNum - 1).jumpedLocations.get(ii);
-            dest.availableMoves.get(0).jumpedLocations.add(new Location(loc));
-        }
-        return dest;
-    }
-
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("\n\033[1;97m    A  B  C  D  E  F  G  H  \n");
+    Game cloneGame(int moveNum) {
+        Game destGame = new Game(-1);
+        destGame.currTurn = this.currTurn;
 
         for (int ii = 0; ii < 8; ii++) {
-            builder.append(" \033[1;97m");
-            builder.append(8 - ii);
-            builder.append("\033[1;97m ");
-            builder.append("");
-
-            int count = 0;
-            for (int jj = 0; jj < 8; ) {
-                if (ii % 2 == 0) {
-                    builder.append(colorPieces(0, ii, jj++));
-                    builder.append("\033[1;97m");
-                }
-                builder.append(colorPieces(board[ii][count++], ii, jj++));
-                builder.append("\033[1;97m");
-                if (ii % 2 == 1) {
-                    builder.append(colorPieces(0, ii, jj++));
-                    builder.append("\033[1;97m");
-                }
-            }
-            builder.append("\n");
-
+            System.arraycopy(this.board[ii], 0, destGame.board[ii], 0, 4);
         }
-        return builder.toString();
+
+        for (int p = 0; p < 2; p++)
+            for (int ii = 0; ii < this.pieces[p].size(); ii++) {
+                Location p2Piece = new Location();
+                p2Piece.row = this.pieces[p].get(ii).row;
+                p2Piece.col = this.pieces[p].get(ii).col;
+                destGame.pieces[0].add(p2Piece);
+            }
+
+
+        Move temp = new Move();
+
+        temp.startPiece = this.availableMoves.get(moveNum - 1).startPiece;
+        temp.end.row = this.availableMoves.get(moveNum - 1).end.row;
+        temp.end.col = this.availableMoves.get(moveNum - 1).end.col;
+        temp.jumpedLocations.clear();
+
+        for (int ii = 0; ii < this.availableMoves.get(moveNum - 1).jumpedLocations.size(); ii++) {
+            temp.jumpedLocations.add(new Location(this.availableMoves.get(moveNum - 1).jumpedLocations.get(ii)));
+        }
+
+        destGame.availableMoves.add(temp);
+        return destGame;
     }
 
-//    public String toString() {
+
+    //    public String toString() {
 //        StringBuilder builder = new StringBuilder();
 //
-//        builder.append("\n\033[1;97m     A   B   C   D   E   F   G   H  \n");
-//        builder.append("   \033[1;97m\u250F\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2513\n");
+//        builder.append("\n\033[1;97m    A  B  C  D  E  F  G  H  \n");
 //
 //        for (int ii = 0; ii < 8; ii++) {
 //            builder.append(" \033[1;97m");
 //            builder.append(8 - ii);
 //            builder.append("\033[1;97m ");
-//            builder.append("\u2503");
+//            builder.append("");
 //
 //            int count = 0;
 //            for (int jj = 0; jj < 8; ) {
 //                if (ii % 2 == 0) {
 //                    builder.append(colorPieces(0, ii, jj++));
-//                    builder.append("\033[1;97m\u2503");
+//                    builder.append("\033[1;97m");
 //                }
 //                builder.append(colorPieces(board[ii][count++], ii, jj++));
-//                builder.append("\033[1;97m\u2503");
+//                builder.append("\033[1;97m");
 //                if (ii % 2 == 1) {
 //                    builder.append(colorPieces(0, ii, jj++));
-//                    builder.append("\033[1;97m\u2503");
+//                    builder.append("\033[1;97m");
 //                }
 //            }
-//
-//
-//            builder.append("\n");
-//
-//            if (ii == 7)
-//                builder.append("   \u2517");
-//            else builder.append("   \u2523");
-//
-//            if (ii < 7)
-//                builder.append("\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501");
-//            else
-//                builder.append("\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501");
-//
-//            if (ii == 7)
-//                builder.append("\u251B");
-//            else builder.append("\u252B");
 //            builder.append("\n");
 //
 //        }
 //        return builder.toString();
 //    }
+
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("\n\033[1;97m     A   B   C   D   E   F   G   H  \n");
+        builder.append("   \033[1;97m\u250F\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2513\n");
+
+        for (int ii = 0; ii < 8; ii++) {
+            builder.append(" \033[1;97m");
+            builder.append(8 - ii);
+            builder.append("\033[1;97m ");
+            builder.append("\u2503");
+
+            int count = 0;
+            for (int jj = 0; jj < 8; ) {
+                if (ii % 2 == 0) {
+                    builder.append(colorPieces(0, ii, jj++));
+                    builder.append("\033[1;97m\u2503");
+                }
+                builder.append(colorPieces(board[ii][count++], ii, jj++));
+                builder.append("\033[1;97m\u2503");
+                if (ii % 2 == 1) {
+                    builder.append(colorPieces(0, ii, jj++));
+                    builder.append("\033[1;97m\u2503");
+                }
+            }
+
+
+            builder.append("\n");
+
+            if (ii == 7)
+                builder.append("   \u2517");
+            else builder.append("   \u2523");
+
+            if (ii < 7)
+                builder.append("\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u254B\u2501\u2501\u2501");
+            else
+                builder.append("\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u253B\u2501\u2501\u2501");
+
+            if (ii == 7)
+                builder.append("\u251B");
+            else builder.append("\u252B");
+            builder.append("\n");
+
+        }
+        return builder.toString();
+    }
 
 }
 
@@ -395,7 +405,7 @@ class Location {
 class Move {
     final ArrayList<Location> jumpedLocations = new ArrayList<>(12);
     int startPiece;
-    Location end;
+    Location end = new Location();
 
     Move() {
     }
@@ -412,6 +422,16 @@ class Move {
             this.jumpedLocations.add(new Location(another.jumpedLocations.get(ii).row, another.jumpedLocations.get(ii).col));
     }
 
+    @Override
+    public boolean equals(Object o) {
+
+        if (o instanceof Move) {
+            Move temp = (Move) o;
+            return temp.jumpedLocations.equals(this.jumpedLocations) && this.startPiece == temp.startPiece && this.end.equals(temp.end);
+        }
+
+        return super.equals(o);
+    }
 
     public String toString() {
         return startPiece + " " + end + " " + jumpedLocations;
