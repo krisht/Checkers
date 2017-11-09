@@ -135,7 +135,7 @@ class Player {
             }
         }
 
-        for (Location loc : game.pieces[(playerNumber % 2) + 1]) {
+        for (Location loc : game.pieces[1 - playerNumber]) {
             if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) {
                 if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
                     advantageValue -= 9;
