@@ -84,15 +84,93 @@ class Player {
     }
 
     private long calculateHeuristic(Game game) {
-        long numPieces = numPiecesValue(game, 1) - numPiecesValue(game, (1 % 2) + 1);
-        long avgToKing = (kingDistance(game, (1 % 2) + 1) - kingDistance(game, 1));  //* 99 / 7;
-        long piecesLeft = piecesLeftWeight(game, 1);
-        long kingLoc = 0;
+        long numPieces = numPiecesValue(game, playerNumber) - numPiecesValue(game, (playerNumber % 2) + 1);
+        long avgToKing = (kingDistance(game, (playerNumber % 2) + 1) - kingDistance(game, playerNumber)) * 99 / 7;
+        long piecesLeft = piecesLeftWeight(game, playerNumber);
+        long kingLoc = 0; //calcualteKingsLoc(game);
         long randomSafety = (new Random()).nextInt(9);
-        // System.out.println(String.format("%d %d %d %d %d", numPieces, avgToKing, piecesLeft, kingLoc, randomSafety));
         return (numPieces * 1000000) + (avgToKing * 100000) + (piecesLeft * 50000) + (kingLoc * 10) + (randomSafety);
     }
-//
+
+    private long calculateKingsLoc(Game game) {
+        int playerAdvantage = -1;
+        int advantageValue = 0;
+
+        if (game.pieces[1].size() > game.pieces[0].size())
+            playerAdvantage = 1;
+        else if (game.pieces[1].size() < game.pieces[0].size())
+            playerAdvantage = 0;
+
+        for (Location loc : game.pieces[playerNumber]) {
+
+            if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) { //About to loose
+                if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
+                    advantageValue += 9;
+                }
+            } else if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) { // If Player 2 occupying top left corner
+                if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 0)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 0))) {
+                    if ((loc.row < 2) && (loc.col == 0)) {
+                        advantageValue += 7;
+                    }
+                    if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
+                        advantageValue += 5;
+                    } else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
+                        advantageValue += 3;
+                    } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
+                        advantageValue += 3;
+                    }
+
+                } else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 0)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 0))) { //Player two occupies bottom corner
+                    if ((loc.row > 5) && (loc.col == 3)) {
+                        advantageValue += 7;
+                    }
+                    if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
+                        advantageValue += 5;
+                    } else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
+                        advantageValue += 3;
+                    } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
+                        advantageValue += 3;
+                    }
+                }
+            }
+        }
+
+        for (Location loc : game.pieces[(playerNumber % 2) + 1]) {
+            if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) {
+                if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
+                    advantageValue -= 9;
+                }
+            } else if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) {
+                if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 1)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 1))) {
+                    if ((loc.row < 2) && (loc.col == 0)) {
+                        advantageValue -= 7;
+                    }
+
+                    if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
+                        advantageValue -= 5;
+                    } else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
+                        advantageValue -= 3;
+                    } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
+                        advantageValue -= 3;
+                    }
+
+                } else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 1)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 1))) {
+                    if ((loc.row > 5) && (loc.col == 3)) {
+                        advantageValue -= 7;
+                    }
+                    if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
+                        advantageValue -= 5;
+                    } else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
+                        advantageValue -= 3;
+                    } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
+                        advantageValue -= 3;
+                    }
+                }
+            }
+        }
+
+        return advantageValue;
+    }
 
     private long numPiecesValue(Game game, int playerNumber) {
         long retVal = 0;
@@ -116,23 +194,16 @@ class Player {
             for (Location loc : game.pieces[1]) {
                 if (!(game.board[loc.row][loc.col] > 2)) {
                     retVal += (7 - loc.row);
-                    //          System.out.println(loc + " " + (7 - loc.row) + " " + retVal);
                     numPawns++;
                 }
             }
-//            System.out.println(game);
-//            System.out.println(retVal + "\n\n\n");
         } else {
             for (Location loc : game.pieces[0]) {
                 if (!(game.board[loc.row][loc.col] > 2)) {
                     retVal += (loc.row);
-                    //        System.out.println(loc + " " + (loc.row) + " " + retVal);
                     numPawns++;
                 }
             }
-//            System.out.println(game);
-//            System.out.println(retVal + "\n\n\n");
-
         }
         if (numPawns == 0) {
             return 0;
@@ -164,13 +235,6 @@ class Player {
     private long alphaBetaPrune(Game gameNode, int depth, int second, long alpha, long beta) {
 
         if (!outOfTime) {
-
-
-//            if (depth == second) {
-//                calculateHeuristicValues(gameNode);
-//                //System.out.println(gameNode);
-//            }
-
 
             if (((new Date()).getTime() - startTimeMS) > 0.998 * Constants.timeLimit) {
                 outOfTime = true;
