@@ -9,8 +9,8 @@ package legitcheckers;
 
 class Constants {
     final static int maxMoves = 32;
-    final static int maxDepth = 50;
-    final static int movesToDraw = 100;
+    final static int maxDepth = 20;
+    final static int movesToDraw = 50;
     final static int startPlayer = 1;
 
     final static int NE = 1;

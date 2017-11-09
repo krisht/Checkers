@@ -115,24 +115,38 @@ class Runner {
 
                 if (runner.game.availableMoves.size() > 0 && runner.playerOneMode > 0) {
 
+                    moveChoice = -1;
 
-                    while (true) {
-                        System.out.print(String.format("Select move for Black player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
-                        userChoice = scan.nextLine();
-                        try {
-                            moveChoice = Integer.parseInt(userChoice);
-                        } catch (NumberFormatException e) {
-                            continue;
+
+                    for (int ii = 0; ii < runner.game.availableMoves.size(); ii++) {
+                        Move move = runner.game.availableMoves.get(ii);
+                        if (move.end.equals(new Location(0, 0)) || move.end.equals(new Location(1, 0))) {
+                            moveChoice = ii + 1;
                         }
-                        if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
-                            break;
+                    }
+
+
+                    if (moveChoice == -1) {
+
+
+                        while (true) {
+                            System.out.print(String.format("Select move for Black player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
+                            userChoice = scan.nextLine();
+                            try {
+                                moveChoice = Integer.parseInt(userChoice);
+                            } catch (NumberFormatException e) {
+                                continue;
+                            }
+                            if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
+                                break;
+                        }
                     }
 
                     Constants.clearScreen();
                     System.out.print("Previous Move:\nBlack Player chose move " + moveChoice + " \n\n\n");
 
 
-                    runner.game.chooseMove(moveChoice, 0);
+                    runner.game.chooseMove(moveChoice);
 
                 } else if (runner.game.availableMoves.size() > 0) {
                     //Player One is an AI
@@ -140,11 +154,11 @@ class Runner {
                         System.out.print("Black's AI is searching for an optimal move...\n");
                         moveChoice = runner.playerOne.chooseAIMove(runner.game);
                         runner.game.getNextMoves();
-                        runner.game.chooseMove(moveChoice, 1);
+                        runner.game.chooseMove(moveChoice);
                     } else {
                         Constants.clearScreen();
                         System.out.print("Previous Move:\nBlack chose only possible move... \n\n\n");
-                        runner.game.chooseMove(1, 0);
+                        runner.game.chooseMove(1);
                     }
 
                 } else {
@@ -158,22 +172,34 @@ class Runner {
 
                 if (runner.game.availableMoves.size() > 0 && runner.playerTwoMode > 0) {
 
-                    while (true) {
-                        System.out.print(String.format("Select move for Red player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
-                        userChoice = scan.nextLine();
-                        try {
-                            moveChoice = Integer.parseInt(userChoice);
-                        } catch (NumberFormatException e) {
-                            continue;
+                    moveChoice = -1;
+                    for (int ii = 0; ii < runner.game.availableMoves.size(); ii++) {
+                        Move move = runner.game.availableMoves.get(ii);
+                        if (move.end.equals(new Location(0, 0)) || move.end.equals(new Location(1, 0))) {
+                            moveChoice = ii + 1;
                         }
-                        if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
-                            break;
+                    }
+
+
+                    if (moveChoice == -1) {
+
+                        while (true) {
+                            System.out.print(String.format("Select move for Red player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
+                            userChoice = scan.nextLine();
+                            try {
+                                moveChoice = Integer.parseInt(userChoice);
+                            } catch (NumberFormatException e) {
+                                continue;
+                            }
+                            if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
+                                break;
+                        }
                     }
 
                     Constants.clearScreen();
                     System.out.print("Previous Move:\nRed Player chose move " + moveChoice + " \n\n\n");
 
-                    runner.game.chooseMove(moveChoice, 0);
+                    runner.game.chooseMove(moveChoice);
 
                 } else if (runner.game.availableMoves.size() > 0) {
                     //Player Two is an AI
@@ -181,11 +207,11 @@ class Runner {
                         System.out.print("Red's AI is searching for an optimal move...\n");
                         runner.game.getNextMoves();
                         moveChoice = runner.playerTwo.chooseAIMove(runner.game);
-                        runner.game.chooseMove(moveChoice, 1);
+                        runner.game.chooseMove(moveChoice);
                     } else {
                         Constants.clearScreen();
                         System.out.print("Previous Move:\nRed chose only possible move... \n\n\n");
-                        runner.game.chooseMove(1, 0);
+                        runner.game.chooseMove(1);
                     }
 
                 } else {

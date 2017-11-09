@@ -207,10 +207,7 @@ class Game {
         availableMoves.add(newMove);
     }
 
-    void chooseMove(int choice, int blah) {
-        if (choice > availableMoves.size() && blah == 1) {
-            System.out.println("Choice: " + choice + ", Moves: " + availableMoves);
-        }
+    void chooseMove(int choice) {
         Move move = availableMoves.get(choice - 1);
         Location pieceNum = pieces[currTurn].get(move.startPiece);
         int origPiece = board[pieceNum.row][pieceNum.col];
