@@ -58,36 +58,55 @@ class Game {
         return pieces[1 - currTurn].remove(captured);
     }
 
-    void chooseMove(int choice, int blah) {
-        if (choice > availableMoves.size() && blah == 1) {
-            System.out.println("Choice: " + choice + ", Moves: " + availableMoves);
+    private static Location setEndLocation(Location start, int dir, int dist) {
+        if (dist > 2 || dist < 1)
+            return null;
+
+        Location end = new Location();
+
+        switch (dir) {
+            case Constants.NE:
+                if (start.row > dist - 1) {
+                    end.row = start.row - dist;
+                    if ((start.row % 2 == 1) && (dist == 1)) {
+                        end.col = start.col;
+                    } else if (start.col < 3) {
+                        end.col = start.col + 1;
+                    }
+                }
+                break;
+            case Constants.NW:
+                if (start.row > dist - 1) {
+                    end.row = start.row - dist;
+                    if ((start.row % 2 == 0) && (dist == 1)) {
+                        end.col = start.col;
+                    } else if (start.col > 0) {
+                        end.col = start.col - 1;
+                    }
+                }
+                break;
+            case Constants.SE:
+                if (start.row + dist < 8) {
+                    end.row = start.row + dist;
+                    if ((start.row % 2 == 1) && (dist == 1)) {
+                        end.col = start.col;
+                    } else if (start.col < 3) {
+                        end.col = start.col + 1;
+                    }
+                }
+                break;
+            case Constants.SW:
+                if (start.row + dist < 8) {
+                    end.row = start.row + dist;
+                    if ((start.row % 2 == 0) && (dist == 1)) {
+                        end.col = start.col;
+                    } else if (start.col > 0) {
+                        end.col = start.col - 1;
+                    }
+                }
+                break;
         }
-        Move move = availableMoves.get(choice - 1);
-        Location pieceNum = pieces[currTurn].get(move.startPiece);
-        int origPiece = board[pieceNum.row][pieceNum.col];
-
-        for (int ii = 0; ii < move.jumpedLocations.size(); ii++) {
-            Location currPos = move.jumpedLocations.get(ii);
-            if (!takePiece(currPos))
-                System.out.println("Could not find opponent's captured piece at " + move.jumpedLocations.get(ii));
-            else board[currPos.row][currPos.col] = Constants.emptyPlayer;
-        }
-
-        if (move.jumpedLocations.size() == 0 && origPiece > 2)
-            numWalkMoves++;
-        else numWalkMoves = 0;
-
-        board[pieceNum.row][pieceNum.col] = Constants.emptyPlayer;
-        if (move.end.row == 0 && origPiece == Constants.regularPlayerOne)
-            board[move.end.row][move.end.col] = Constants.kingPlayerOne;
-        else if (move.end.row == 7 && origPiece == Constants.regularPlayerTwo)
-            board[move.end.row][move.end.col] = Constants.kingPlayerTwo;
-        else board[move.end.row][move.end.col] = origPiece;
-
-        pieces[currTurn].get(move.startPiece).row = move.end.row;
-        pieces[currTurn].get(move.startPiece).col = move.end.col;
-
-        currTurn = 1 - currTurn;
+        return end;
     }
 
     private String nameSquare(int row, int col) {
@@ -188,55 +207,36 @@ class Game {
         availableMoves.add(newMove);
     }
 
-    private Location setEndLocation(Location start, int dir, int dist) {
-        if (dist > 2 || dist < 1)
-            return null;
-
-        Location end = new Location();
-
-        switch (dir) {
-            case Constants.NE:
-                if (start.row > dist - 1) {
-                    end.row = start.row - dist;
-                    if ((start.row % 2 == 1) && (dist == 1)) {
-                        end.col = start.col;
-                    } else if (start.col < 3) {
-                        end.col = start.col + 1;
-                    }
-                }
-                break;
-            case Constants.NW:
-                if (start.row > dist - 1) {
-                    end.row = start.row - dist;
-                    if ((start.row % 2 == 0) && (dist == 1)) {
-                        end.col = start.col;
-                    } else if (start.col > 0) {
-                        end.col = start.col - 1;
-                    }
-                }
-                break;
-            case Constants.SE:
-                if (start.row + dist < 8) {
-                    end.row = start.row + dist;
-                    if ((start.row % 2 == 1) && (dist == 1)) {
-                        end.col = start.col;
-                    } else if (start.col < 3) {
-                        end.col = start.col + 1;
-                    }
-                }
-                break;
-            case Constants.SW:
-                if (start.row + dist < 8) {
-                    end.row = start.row + dist;
-                    if ((start.row % 2 == 0) && (dist == 1)) {
-                        end.col = start.col;
-                    } else if (start.col > 0) {
-                        end.col = start.col - 1;
-                    }
-                }
-                break;
+    void chooseMove(int choice, int blah) {
+        if (choice > availableMoves.size() && blah == 1) {
+            System.out.println("Choice: " + choice + ", Moves: " + availableMoves);
         }
-        return end;
+        Move move = availableMoves.get(choice - 1);
+        Location pieceNum = pieces[currTurn].get(move.startPiece);
+        int origPiece = board[pieceNum.row][pieceNum.col];
+
+        for (int ii = 0; ii < move.jumpedLocations.size(); ii++) {
+            Location currPos = move.jumpedLocations.get(ii);
+            if (!takePiece(currPos))
+                System.out.println("Could not find opponent's captured piece at " + move.jumpedLocations.get(ii));
+            else board[currPos.row][currPos.col] = Constants.emptyPlayer;
+        }
+
+        if (move.jumpedLocations.size() == 0 && origPiece > 2)
+            numWalkMoves++;
+        else numWalkMoves = 0;
+
+        board[pieceNum.row][pieceNum.col] = Constants.emptyPlayer;
+        if (move.end.row == 0 && origPiece == Constants.regularPlayerOne)
+            board[move.end.row][move.end.col] = Constants.kingPlayerOne;
+        else if (move.end.row == 7 && origPiece == Constants.regularPlayerTwo)
+            board[move.end.row][move.end.col] = Constants.kingPlayerTwo;
+        else board[move.end.row][move.end.col] = origPiece;
+
+        pieces[currTurn].get(move.startPiece).row = move.end.row;
+        pieces[currTurn].get(move.startPiece).col = move.end.col;
+
+        currTurn = 1 - currTurn;
     }
 
 
@@ -267,24 +267,24 @@ class Game {
         Game destGame = new Game(-1);
         destGame.currTurn = this.currTurn;
 
-        for (int rowIter = 0; rowIter < 8; rowIter++) {
-            for (int columnIter = 0; columnIter < 4; columnIter++) {
-                destGame.board[rowIter][columnIter] = this.board[rowIter][columnIter];
+        for (int ii = 0; ii < 8; ii++) {
+            for (int jj = 0; jj < 4; jj++) {
+                destGame.board[ii][jj] = this.board[ii][jj];
             }
         }
 
-        for (int p2PieceIter = 0; p2PieceIter < this.pieces[0].size(); p2PieceIter++) {
-            Location p2Piece = new Location();
-            p2Piece.row = this.pieces[0].get(p2PieceIter).row;
-            p2Piece.col = this.pieces[0].get(p2PieceIter).col;
-            destGame.pieces[0].add(p2Piece);
+        for (int ii = 0; ii < this.pieces[0].size(); ii++) {
+            Location loc = new Location();
+            loc.row = this.pieces[0].get(ii).row;
+            loc.col = this.pieces[0].get(ii).col;
+            destGame.pieces[0].add(loc);
         }
 
-        for (int p1PieceIter = 0; p1PieceIter < this.pieces[1].size(); p1PieceIter++) {
-            Location p1Piece = new Location();
-            p1Piece.row = this.pieces[1].get(p1PieceIter).row;
-            p1Piece.col = this.pieces[1].get(p1PieceIter).col;
-            destGame.pieces[1].add(p1Piece);
+        for (int ii = 0; ii < this.pieces[1].size(); ii++) {
+            Location loc = new Location();
+            loc.row = this.pieces[1].get(ii).row;
+            loc.col = this.pieces[1].get(ii).col;
+            destGame.pieces[1].add(loc);
         }
 
         Move temp = new Move();
@@ -303,27 +303,7 @@ class Game {
     }
 
 
-    Game clone(int childNum) {
-        Game dest = new Game(this.currTurn);
-
-        for (int ii = 0; ii < 8; ii++)
-            System.arraycopy(this.board[ii], 0, dest.board[ii], 0, this.board[ii].length);
-
-        for (int ii = 0; ii < 2; ii++)
-            for (int jj = 0; jj < this.pieces[ii].size(); jj++)
-                dest.pieces[ii].add(new Location(this.pieces[ii].get(jj)));
-
-        dest.getNextMoves();
-
-        if (!availableMoves.equals(dest.availableMoves)) {
-            System.out.println(availableMoves);
-            System.out.println(dest.availableMoves);
-        }
-
-        return dest;
-    }
-
-//    public String toString() {
+    //    public String toString() {
 //        StringBuilder builder = new StringBuilder();
 //
 //        builder.append("\n\033[1;97m    A  B  C  D  E  F  G  H  \n");

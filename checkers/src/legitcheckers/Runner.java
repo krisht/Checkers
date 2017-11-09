@@ -88,7 +88,7 @@ class Runner {
             try {
                 if (0 < Integer.parseInt(userChoice) && Integer.parseInt(userChoice) < 11)
                     userChoice = "./legitcheckers/board" + Integer.parseInt(userChoice) + ".txt";
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException ignored) {
 
             }
             if (runner.loadGame(userChoice))
@@ -114,6 +114,7 @@ class Runner {
                 runner.game.printNextMoves();
 
                 if (runner.game.availableMoves.size() > 0 && runner.playerOneMode > 0) {
+
 
                     while (true) {
                         System.out.print(String.format("Select move for Black player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
@@ -294,6 +295,7 @@ class Runner {
 
         return true;
     }
+
 
 }
 
