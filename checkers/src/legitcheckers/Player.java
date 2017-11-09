@@ -55,6 +55,8 @@ class Player {
         }
 
         if (completedBestMove <= 0 || completedBestMove >= game.availableMoves.size()) {
+            System.out.println("Found value : " + bestMove);
+            System.out.println("Found completed best move : " + completedBestMove);
             completedBestMove = (new Random()).nextInt(game.availableMoves.size()) + 1;
         }
 
@@ -81,166 +83,16 @@ class Player {
         return (game.availableMoves.isEmpty() || (game.numWalkMoves == Constants.movesToDraw));
     }
 
-    private boolean isBottomRow(Location loc) {
-        return loc.row == 7;
-    }
-
-    private boolean isTopRow(Location loc) {
-        return loc.row == 0;
-    }
-
-    private boolean isLeftColumn(Location loc) {
-        return (loc.row % 2 == 1 && loc.col == 0);
-    }
-
-    private boolean isRightColumn(Location loc) {
-        return (loc.row % 2 == 0 && loc.col == 3);
-    }
-
-    private boolean isCenterPiece(Location loc) {
-        return (loc.row == 3 || loc.row == 4) && (loc.col == 1 || loc.col == 2);
-    }
-
-    private boolean isTrapped(Location loc) {
-        return (loc.row == 7 && loc.col == 0) || (loc.row == 0 && loc.col == 3);
-    }
-
-    private boolean isDiagKing(Game game, Location loc) {
-        if (loc.row == 7 && loc.col == 3) {
-            return game.board[6][3] == 0;
-        }
-
-        if (loc.row == 6 && loc.col == 3) {
-            return game.board[7][3] == 0;
-        }
-
-        if (loc.row == 1 && loc.col == 0) {
-            return game.board[0][0] == 0;
-        }
-
-        return loc.row == 0 && loc.col == 0 && game.board[1][0] == 0;
-    }
-
-    private long getDistancePenalty(Game game) {
-
-        int totalDistance = 0;
-
-        for (Location l1 : game.pieces[0]) {
-            for (Location l2 : game.pieces[1]) {
-                if (game.board[l1.row][l1.col] > 2 && game.board[l2.row][l2.col] > 2)
-                    totalDistance += estimateDistance(l1, l2);
-            }
-        }
-
-        return totalDistance;
-    }
-
-
-//    private long evaluateState(Game game) {
-//
-//        int blackPawns, blackKings, redPawns, redKings;
-//        int blackCenter, redCenter;
-//        int blackLineRow, redLineRow, blackLineCol, redLineCol;
-//        int blackTrapped, redTrapped;
-//        int blackDiagonal, redDiagonal;
-//
-//
-//        blackPawns = blackKings = redPawns = redKings = 0;
-//        blackCenter = redCenter = 0;
-//        blackLineRow = redLineRow = blackLineCol = redLineCol = 0;
-//        blackTrapped = redTrapped = 0;
-//        blackDiagonal = redDiagonal = 0;
-//
-//        for (Location loc : game.pieces[1]) {
-//
-//            if (isCenterPiece(loc))
-//                blackCenter++;
-//
-//            if (isBottomRow(loc))
-//                blackLineRow++;
-//
-//            if (isRightColumn(loc))
-//                blackLineCol++;
-//
-//            if (game.board[loc.row][loc.col] > 2) {
-//                blackKings++;
-//
-//                if (isTrapped(loc))
-//                    blackTrapped++;
-//
-//                if (isDiagKing(game, loc))
-//                    blackDiagonal++;
-//            } else {
-//                blackPawns++;
-//            }
-//        }
-//
-//        for (Location loc : game.pieces[0]) {
-//
-//            if (isCenterPiece(loc))
-//                redCenter++;
-//
-//            if (isTopRow(loc))
-//                redLineRow++;
-//
-//            if (isLeftColumn(loc))
-//                redLineCol++;
-//
-//            if (game.board[loc.row][loc.col] > 2) {
-//                redKings++;
-//
-//                if (isTrapped(loc))
-//                    redTrapped++;
-//
-//                if (isDiagKing(game, loc))
-//                    redDiagonal++;
-//
-//            } else {
-//                redPawns++;
-//            }
-//        }
-//
-//
-//        long mobility = Math.round(game.availableMoves.size() + Math.pow(10.0, Constants.minVal));
-//
-//        long distance = getDistancePenalty(game);
-//
-//
-//        long score = blackPawns * 100 + blackKings * 140 - redPawns * 100 - redKings * 140;
-//        if ((game.currTurn == 1 && (blackPawns + blackKings) > 2) || (game.currTurn == 0 && (redPawns + redKings) > 2)) {
-//            score += blackCenter * 10 - redCenter * 10;
-//            score += -blackLineRow * 5 - blackLineCol * 3 + redLineRow * 5 + redLineCol * 3;
-//        }
-//        if ((game.currTurn == 1 && (blackPawns + blackKings) <= 3) || (game.currTurn == 0 && (redPawns + redKings) <= 3))
-//            score += (-blackTrapped * 10 + redTrapped * 10);
-//        if ((game.currTurn == 1 && blackKings <= 2) || (game.currTurn == 0 && redKings <= 2))
-//            score += (blackKings * 30 - redKings * 30);
-//        score += distance * (redKings - blackKings) * 30;
-//        score += mobility;
-//
-//        return score;
-//
-//    }
-
     private long calculateHeuristic(Game game) {
-        long numPieces = numPiecesValue(game, playerNumber) - numPiecesValue(game, (playerNumber % 2) + 1);
-        long avgToKing = (kingDistance(game, (playerNumber % 2) + 1) - kingDistance(game, playerNumber));  //* 99 / 7;
-        long piecesLeft = piecesLeftWeight(game, playerNumber);
+        long numPieces = numPiecesValue(game, 1) - numPiecesValue(game, (1 % 2) + 1);
+        long avgToKing = (kingDistance(game, (1 % 2) + 1) - kingDistance(game, 1));  //* 99 / 7;
+        long piecesLeft = piecesLeftWeight(game, 1);
         long kingLoc = 0;
         long randomSafety = (new Random()).nextInt(9);
         // System.out.println(String.format("%d %d %d %d %d", numPieces, avgToKing, piecesLeft, kingLoc, randomSafety));
-        return (numPieces * 10000000) + (avgToKing * 100000) + (piecesLeft * 1000) + (kingLoc * 10) + (randomSafety);
+        return (numPieces * 1000000) + (avgToKing * 100000) + (piecesLeft * 50000) + (kingLoc * 10) + (randomSafety);
     }
-
-    private void calculateHeuristicValues(Game game) {
-        long numPieces = numPiecesValue(game, playerNumber) - numPiecesValue(game, (playerNumber % 2) + 1);
-        long avgToKing = (kingDistance(game, (playerNumber % 2) + 1) - kingDistance(game, playerNumber));  //* 99 / 7;
-        long piecesLeft = piecesLeftWeight(game, playerNumber);
-        long kingLoc = 0;
-        long randomSafety = (new Random()).nextInt(9);
-        System.out.println(String.format("%d %d %d %d %d", numPieces, avgToKing, piecesLeft, kingLoc, randomSafety));
-    }
-
+//
 
     private long numPiecesValue(Game game, int playerNumber) {
         long retVal = 0;
@@ -257,14 +109,14 @@ class Player {
     }
 
     private long kingDistance(Game game, int playerNumber) {
-        System.out.println("Player Number " + playerNumber);
+        //System.out.println("Player Number " + playerNumber);
         long retVal = 0;
         int numPawns = 0;
         if (playerNumber == 1) {
             for (Location loc : game.pieces[1]) {
                 if (!(game.board[loc.row][loc.col] > 2)) {
                     retVal += (7 - loc.row);
-                    System.out.println(loc + " " + (7 - loc.row) + " " + retVal);
+                    //          System.out.println(loc + " " + (7 - loc.row) + " " + retVal);
                     numPawns++;
                 }
             }
@@ -274,7 +126,7 @@ class Player {
             for (Location loc : game.pieces[0]) {
                 if (!(game.board[loc.row][loc.col] > 2)) {
                     retVal += (loc.row);
-                    System.out.println(loc + " " + (loc.row) + " " + retVal);
+                    //        System.out.println(loc + " " + (loc.row) + " " + retVal);
                     numPawns++;
                 }
             }
@@ -285,7 +137,7 @@ class Player {
         if (numPawns == 0) {
             return 0;
         } else {
-            System.out.println(numPawns);
+            // System.out.println(numPawns);
             return retVal / numPawns;
         }
     }
@@ -309,17 +161,15 @@ class Player {
         }
     }
 
-
-
     private long alphaBetaPrune(Game gameNode, int depth, int second, long alpha, long beta) {
 
         if (!outOfTime) {
 
 
-            if (depth == second) {
-                calculateHeuristicValues(gameNode);
-                System.out.println(gameNode);
-            }
+//            if (depth == second) {
+//                calculateHeuristicValues(gameNode);
+//                //System.out.println(gameNode);
+//            }
 
 
             if (((new Date()).getTime() - startTimeMS) > 0.998 * Constants.timeLimit) {
@@ -340,7 +190,13 @@ class Player {
                     Game childGame = gameNode.cloneGame(child);
                     childGame.chooseMove(1);
 
-                    v = Math.max(v, alphaBetaPrune(childGame, depth - 1, second, alpha, beta));
+                    long ret = alphaBetaPrune(childGame, depth - 1, second, alpha, beta);
+
+                    if (ret > v) {
+                        v = ret;
+                        if (depth == maxDepth)
+                            bestMove = child;
+                    }
 
                     alpha = Math.max(alpha, v);
 
@@ -355,8 +211,15 @@ class Player {
                 for (int child = 1; child <= gameNode.availableMoves.size(); child++) {
                     Game childGame = gameNode.cloneGame(child);
                     childGame.chooseMove(1);
-                    v = Math.min(v, alphaBetaPrune(childGame, depth - 1, second, alpha, beta));
+                    long ret = alphaBetaPrune(childGame, depth - 1, second, alpha, beta);
+
+                    if (ret < v) {
+                        v = ret;
+                        if (depth == maxDepth)
+                            bestMove = child;
+                    }
                     beta = Math.min(beta, v);
+
                     if (beta <= alpha)
                         break;
                 }

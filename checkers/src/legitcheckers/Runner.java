@@ -115,31 +115,17 @@ class Runner {
 
                 if (runner.game.availableMoves.size() > 0 && runner.playerOneMode > 0) {
 
-                    moveChoice = -1;
 
-
-                    for (int ii = 0; ii < runner.game.availableMoves.size(); ii++) {
-                        Move move = runner.game.availableMoves.get(ii);
-                        if (move.end.equals(new Location(0, 0)) || move.end.equals(new Location(1, 0))) {
-                            moveChoice = ii + 1;
+                    while (true) {
+                        System.out.print(String.format("Select move for Black player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
+                        userChoice = scan.nextLine();
+                        try {
+                            moveChoice = Integer.parseInt(userChoice);
+                        } catch (NumberFormatException e) {
+                            continue;
                         }
-                    }
-
-
-                    if (moveChoice == -1) {
-
-
-                        while (true) {
-                            System.out.print(String.format("Select move for Black player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
-                            userChoice = scan.nextLine();
-                            try {
-                                moveChoice = Integer.parseInt(userChoice);
-                            } catch (NumberFormatException e) {
-                                continue;
-                            }
-                            if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
-                                break;
-                        }
+                        if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
+                            break;
                     }
 
                     Constants.clearScreen();
@@ -172,28 +158,16 @@ class Runner {
 
                 if (runner.game.availableMoves.size() > 0 && runner.playerTwoMode > 0) {
 
-                    moveChoice = -1;
-                    for (int ii = 0; ii < runner.game.availableMoves.size(); ii++) {
-                        Move move = runner.game.availableMoves.get(ii);
-                        if (move.end.equals(new Location(0, 0)) || move.end.equals(new Location(1, 0))) {
-                            moveChoice = ii + 1;
+                    while (true) {
+                        System.out.print(String.format("Select move for Red player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
+                        userChoice = scan.nextLine();
+                        try {
+                            moveChoice = Integer.parseInt(userChoice);
+                        } catch (NumberFormatException e) {
+                            continue;
                         }
-                    }
-
-
-                    if (moveChoice == -1) {
-
-                        while (true) {
-                            System.out.print(String.format("Select move for Red player between 1 and %d or press Ctrl + C to exit: ", runner.game.availableMoves.size()));
-                            userChoice = scan.nextLine();
-                            try {
-                                moveChoice = Integer.parseInt(userChoice);
-                            } catch (NumberFormatException e) {
-                                continue;
-                            }
-                            if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
-                                break;
-                        }
+                        if (!(moveChoice > runner.game.availableMoves.size() || moveChoice < 0))
+                            break;
                     }
 
                     Constants.clearScreen();
