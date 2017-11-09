@@ -41,8 +41,8 @@ class Constants {
     final static int playerMode = 1;
     final static int computerMode = 0;
 
-    final static long minVal = -1000000000000000L;
-    final static long maxVal = 1000000000000000L;
+    final static long minVal = Long.MIN_VALUE;
+    final static long maxVal = Long.MAX_VALUE;
 
     //Ascii art thanks to http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
     static final String winPlayerTwo = "   _____                         ____                 _ \n" +

@@ -53,6 +53,7 @@ class Game {
         System.out.println(this);
     }
 
+
     private boolean takePiece(Location captured) {
         return pieces[1 - currTurn].remove(captured);
     }
@@ -266,18 +267,25 @@ class Game {
         Game destGame = new Game(-1);
         destGame.currTurn = this.currTurn;
 
-        for (int ii = 0; ii < 8; ii++) {
-            System.arraycopy(this.board[ii], 0, destGame.board[ii], 0, 4);
+        for (int rowIter = 0; rowIter < 8; rowIter++) {
+            for (int columnIter = 0; columnIter < 4; columnIter++) {
+                destGame.board[rowIter][columnIter] = this.board[rowIter][columnIter];
+            }
         }
 
-        for (int p = 0; p < 2; p++)
-            for (int ii = 0; ii < this.pieces[p].size(); ii++) {
-                Location p2Piece = new Location();
-                p2Piece.row = this.pieces[p].get(ii).row;
-                p2Piece.col = this.pieces[p].get(ii).col;
-                destGame.pieces[0].add(p2Piece);
-            }
+        for (int p2PieceIter = 0; p2PieceIter < this.pieces[0].size(); p2PieceIter++) {
+            Location p2Piece = new Location();
+            p2Piece.row = this.pieces[0].get(p2PieceIter).row;
+            p2Piece.col = this.pieces[0].get(p2PieceIter).col;
+            destGame.pieces[0].add(p2Piece);
+        }
 
+        for (int p1PieceIter = 0; p1PieceIter < this.pieces[1].size(); p1PieceIter++) {
+            Location p1Piece = new Location();
+            p1Piece.row = this.pieces[1].get(p1PieceIter).row;
+            p1Piece.col = this.pieces[1].get(p1PieceIter).col;
+            destGame.pieces[1].add(p1Piece);
+        }
 
         Move temp = new Move();
 
@@ -295,7 +303,27 @@ class Game {
     }
 
 
-    //    public String toString() {
+    Game clone(int childNum) {
+        Game dest = new Game(this.currTurn);
+
+        for (int ii = 0; ii < 8; ii++)
+            System.arraycopy(this.board[ii], 0, dest.board[ii], 0, this.board[ii].length);
+
+        for (int ii = 0; ii < 2; ii++)
+            for (int jj = 0; jj < this.pieces[ii].size(); jj++)
+                dest.pieces[ii].add(new Location(this.pieces[ii].get(jj)));
+
+        dest.getNextMoves();
+
+        if (!availableMoves.equals(dest.availableMoves)) {
+            System.out.println(availableMoves);
+            System.out.println(dest.availableMoves);
+        }
+
+        return dest;
+    }
+
+//    public String toString() {
 //        StringBuilder builder = new StringBuilder();
 //
 //        builder.append("\n\033[1;97m    A  B  C  D  E  F  G  H  \n");

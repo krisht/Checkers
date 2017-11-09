@@ -84,8 +84,13 @@ class Runner {
         userChoice = scan.nextLine();
 
         if (userChoice.length() != 0) {
-            if (0 < Integer.parseInt(userChoice) && Integer.parseInt(userChoice) < 11)
-                userChoice = "./legitcheckers/board" + Integer.parseInt(userChoice) + ".txt";
+
+            try {
+                if (0 < Integer.parseInt(userChoice) && Integer.parseInt(userChoice) < 11)
+                    userChoice = "./legitcheckers/board" + Integer.parseInt(userChoice) + ".txt";
+            } catch (NumberFormatException e) {
+
+            }
             if (runner.loadGame(userChoice))
                 System.out.println("Successfully loaded in game! Press enter to continue...");
             else {
@@ -124,6 +129,8 @@ class Runner {
 
                     Constants.clearScreen();
                     System.out.print("Previous Move:\nBlack Player chose move " + moveChoice + " \n\n\n");
+
+
                     runner.game.chooseMove(moveChoice, 0);
 
                 } else if (runner.game.availableMoves.size() > 0) {
