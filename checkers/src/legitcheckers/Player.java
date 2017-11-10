@@ -86,17 +86,12 @@ class Player {
     }
 
     private long calculateHeuristic(Game game) {
-        long numPieces = numPiecesValue(game, 1) - numPiecesValue(game, (1 % 2) + 1);
-        long avgToKing = (kingDistance(game, (1 % 2) + 1) - kingDistance(game, 1)) * 99 / 7;
+        long numPieces = numPiecesValue(game, 1) - numPiecesValue(game, 2);
+        long avgToKing = (kingDistance(game, 2) - kingDistance(game, 1)) * 99 / 7;
         long piecesLeft = piecesLeftWeight(game, 1);
-        long kingLoc = 0;
-        calculateKingsLoc(game, 1);
+        long kingLoc = calculateKingsLoc(game, 1);
         long randomSafety = (new Random()).nextInt(9);
         return (numPieces * 1000000) + (avgToKing * 100000) + (piecesLeft * 50000) + (kingLoc * 10) + (randomSafety);
-    }
-
-    private long euclideanDistance(Location a, Location b) {
-        return Math.round((Math.pow(a.row - b.row, 2) + Math.pow(a.col - b.col, 2)));
     }
 
     private long calculateKingsLoc(Game game, int playerNumber) {
@@ -106,50 +101,6 @@ class Player {
             playerAdvantage = 1;
         else if (game.pieces[1].size() < game.pieces[0].size())
             playerAdvantage = 0;
-
-//        ArrayList<Location> playerOneKings = new ArrayList<>();
-//        ArrayList<Location> playerTwoKings = new ArrayList<>();
-//
-//        for(Location loc : game.pieces[1])
-//            if(game.board[loc.row][loc.col] > 2)
-//            playerOneKings.add(loc);
-//
-//        for(Location loc : game.pieces[0])
-//            if(game.board[loc.row][loc.col] > 2)
-//            playerTwoKings.add(loc) ;
-//
-//        long advantageVal = 0;
-//
-//        if(playerAdvantage == 0 && game.pieces[1].size()  < 3)
-//            if()
-//            advantageVal+=99;
-//        if(playerAdvantage == 1 && game.pieces[0].size() < 3)
-//            advantageVal-=99;
-//
-//
-//        long distance = 0;
-//
-//        long minDist = 0;
-//
-//
-////        if(playerOneKings.size() == 2 && playerTwoKings.size() == 1){
-////            distance += euclideanDistance(playerOneKings.get(0), playerTwoKings.get(0));
-////            distance += euclideanDistance(playerOneKings.get(1), playerTwoKings.get(0));
-////            minDist =  (140 - distance) * 99 / 140;
-////        } else if(playerOneKings.size() == 1 && playerTwoKings.size() == 2) {
-////            distance += euclideanDistance(playerOneKings.get(0), playerTwoKings.get(0));
-////            distance += euclideanDistance(playerOneKings.get(0), playerTwoKings.get(1));
-////            minDist =  -(140 - distance) * 99 / 140;
-////        }
-//
-////        if(minVal < advantageVal + minDist/2){
-////            System.out.println(game);
-////            minVal = advantageVal + minDist/2;
-////            System.out.println(minVal);
-////        }
-//
-//        return (advantageVal + minDist/2);
-
 
         long advantageValue = 0;
 
