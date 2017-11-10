@@ -84,13 +84,6 @@ class Runner {
         userChoice = scan.nextLine();
 
         if (userChoice.length() != 0) {
-
-            try {
-                if (0 < Integer.parseInt(userChoice) && Integer.parseInt(userChoice) < 11)
-                    userChoice = "./legitcheckers/board" + Integer.parseInt(userChoice) + ".txt";
-            } catch (NumberFormatException ignored) {
-
-            }
             if (runner.loadGame(userChoice))
                 System.out.println("Successfully loaded in game! Press enter to continue...");
             else {

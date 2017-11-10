@@ -16,14 +16,8 @@ class Player {
     private long startTimeMS, currTimeMS;
     private boolean outOfTime;
 
-    private long minVal;
-
     Player(int playerNumberber) {
         this.playerNumber = playerNumberber;
-    }
-
-    private int estimateDistance(Location one, Location two) {
-        return Math.max(Math.abs(one.col - two.col), Math.abs(one.row - two.row));
     }
 
     int chooseAIMove(Game game) {
@@ -45,7 +39,7 @@ class Player {
 
         for (int depth = startingDepth; depth < Constants.maxDepth; depth++) {
             maxDepth = depth;
-            bestValue = alphaBetaPrune(game, depth, depth,  /*Long.MIN_VALUE/*/Constants.minVal, /*Long.MAX_VALUE/*/Constants.maxVal);
+            bestValue = alphaBetaPrune(game, depth, depth, Constants.minVal, Constants.maxVal);
             if (!outOfTime)
                 completedBestMove = bestMove;
             else maxDepth--;
@@ -85,96 +79,96 @@ class Player {
         return (game.availableMoves.isEmpty() || (game.numWalkMoves == Constants.movesToDraw));
     }
 
-    private long calculateHeuristic(Game game) {
-        long numPieces = numPiecesValue(game, 1) - numPiecesValue(game, 2);
-        long avgToKing = (kingDistance(game, 2) - kingDistance(game, 1)) * 99 / 7;
-        long piecesLeft = piecesLeftWeight(game, 1);
+    private long evaluateGame(Game game) {
+        long numPieces = calculatePiecesVal(game, 1) - calculatePiecesVal(game, 2);
+        long avgToKing = (promoDistance(game, 2) - promoDistance(game, 1)) * 99 / 7;
+        long piecesLeft = remainingLeverage(game, 1);
         long kingLoc = calculateKingsLoc(game, 1);
         long randomSafety = (new Random()).nextInt(9);
         return (numPieces * 1000000) + (avgToKing * 100000) + (piecesLeft * 50000) + (kingLoc * 10) + (randomSafety);
     }
 
     private long calculateKingsLoc(Game game, int playerNumber) {
-        int playerAdvantage = -1;
+        int adv = -1;
 
         if (game.pieces[1].size() > game.pieces[0].size())
-            playerAdvantage = 1;
+            adv = 1;
         else if (game.pieces[1].size() < game.pieces[0].size())
-            playerAdvantage = 0;
+            adv = 0;
 
-        long advantageValue = 0;
+        long retVal = 0;
 
         for (Location loc : game.pieces[playerNumber]) {
 
-            if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) { //About to loose
+            if ((adv == 0) && (game.pieces[1].size() < 3)) { //About to loose
                 if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
-                    advantageValue += 99;
+                    retVal += 9;
                 }
-            } else if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) { // If Player 2 occupying top left corner
+            } else if ((adv == 1) && (game.pieces[0].size() < 3)) { // If Player 2 occupying top left corner
                 if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 0)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 0))) {
                     if ((loc.row < 2) && (loc.col == 0)) {
-                        advantageValue += 77;
+                        retVal += 7;
                     }
                     if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
-                        advantageValue += 55;
+                        retVal += 5;
                     } else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
-                        advantageValue += 33;
+                        retVal += 3;
                     } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
-                        advantageValue += 33;
+                        retVal += 3;
                     }
 
                 } else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 0)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 0))) { //Player two occupies bottom corner
                     if ((loc.row > 5) && (loc.col == 3)) {
-                        advantageValue += 77;
+                        retVal += 7;
                     }
                     if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
-                        advantageValue += 55;
+                        retVal += 5;
                     } else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
-                        advantageValue += 33;
+                        retVal += 3;
                     } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
-                        advantageValue += 33;
+                        retVal += 3;
                     }
                 }
             }
         }
 
         for (Location loc : game.pieces[1 - playerNumber]) {
-            if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) {
+            if ((adv == 1) && (game.pieces[0].size() < 3)) {
                 if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
-                    advantageValue -= 99;
+                    retVal -= 9;
                 }
-            } else if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) {
+            } else if ((adv == 0) && (game.pieces[1].size() < 3)) {
                 if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 1)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 1))) {
                     if ((loc.row < 2) && (loc.col == 0)) {
-                        advantageValue -= 77;
+                        retVal -= 7;
                     }
 
                     if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
-                        advantageValue -= 55;
+                        retVal -= 5;
                     } else if ((loc.row == 33 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
-                        advantageValue -= 33;
+                        retVal -= 3;
                     } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
-                        advantageValue -= 33;
+                        retVal -= 3;
                     }
 
                 } else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 1)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 1))) {
                     if ((loc.row > 5) && (loc.col == 3)) {
-                        advantageValue -= 77;
+                        retVal -= 7;
                     }
                     if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
-                        advantageValue -= 55;
+                        retVal -= 5;
                     } else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
-                        advantageValue -= 33;
+                        retVal -= 3;
                     } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
-                        advantageValue -= 33;
+                        retVal -= 3;
                     }
                 }
             }
         }
-        return advantageValue;
+        return retVal;
     }
 
-    private long numPiecesValue(Game game, int playerNumber) {
+    private long calculatePiecesVal(Game game, int playerNumber) {
         long retVal = 0;
         if (playerNumber == 1) {
             for (Location loc : game.pieces[1]) {
@@ -188,7 +182,7 @@ class Player {
         return retVal;
     }
 
-    private long kingDistance(Game game, int playerNumber) {
+    private long promoDistance(Game game, int playerNumber) {
         //System.out.println("Player Number " + playerNumber);
         long retVal = 0;
         int numPawns = 0;
@@ -215,7 +209,7 @@ class Player {
         }
     }
 
-    private long piecesLeftWeight(Game game, int playerNumber) {
+    private long remainingLeverage(Game game, int playerNumber) {
         int numPieces = game.pieces[1].size() + game.pieces[0].size();
         int blackPieces = game.pieces[1].size();
         int redPieces = game.pieces[0].size();
@@ -246,7 +240,7 @@ class Player {
             gameNode.getNextMoves();
 
             if (isTerminalState(gameNode) || depth == 0) {
-                return (calculateHeuristic(gameNode));
+                return (evaluateGame(gameNode));
             }
 
 
