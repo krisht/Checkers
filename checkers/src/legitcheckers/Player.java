@@ -16,6 +16,8 @@ class Player {
     private long startTimeMS, currTimeMS;
     private boolean outOfTime;
 
+    private long minVal;
+
     Player(int playerNumberber) {
         this.playerNumber = playerNumberber;
     }
@@ -84,52 +86,102 @@ class Player {
     }
 
     private long calculateHeuristic(Game game) {
-        long numPieces = numPiecesValue(game, playerNumber) - numPiecesValue(game, (playerNumber % 2) + 1);
-        long avgToKing = (kingDistance(game, (playerNumber % 2) + 1) - kingDistance(game, playerNumber)) * 99 / 7;
-        long piecesLeft = piecesLeftWeight(game, playerNumber);
-        long kingLoc = 0; //calcualteKingsLoc(game);
+        long numPieces = numPiecesValue(game, 1) - numPiecesValue(game, (1 % 2) + 1);
+        long avgToKing = (kingDistance(game, (1 % 2) + 1) - kingDistance(game, 1)) * 99 / 7;
+        long piecesLeft = piecesLeftWeight(game, 1);
+        long kingLoc = 0;
+        calculateKingsLoc(game, 1);
         long randomSafety = (new Random()).nextInt(9);
         return (numPieces * 1000000) + (avgToKing * 100000) + (piecesLeft * 50000) + (kingLoc * 10) + (randomSafety);
     }
 
-    private long calculateKingsLoc(Game game) {
+    private long euclideanDistance(Location a, Location b) {
+        return Math.round((Math.pow(a.row - b.row, 2) + Math.pow(a.col - b.col, 2)));
+    }
+
+    private long calculateKingsLoc(Game game, int playerNumber) {
         int playerAdvantage = -1;
-        int advantageValue = 0;
 
         if (game.pieces[1].size() > game.pieces[0].size())
             playerAdvantage = 1;
         else if (game.pieces[1].size() < game.pieces[0].size())
             playerAdvantage = 0;
 
+//        ArrayList<Location> playerOneKings = new ArrayList<>();
+//        ArrayList<Location> playerTwoKings = new ArrayList<>();
+//
+//        for(Location loc : game.pieces[1])
+//            if(game.board[loc.row][loc.col] > 2)
+//            playerOneKings.add(loc);
+//
+//        for(Location loc : game.pieces[0])
+//            if(game.board[loc.row][loc.col] > 2)
+//            playerTwoKings.add(loc) ;
+//
+//        long advantageVal = 0;
+//
+//        if(playerAdvantage == 0 && game.pieces[1].size()  < 3)
+//            if()
+//            advantageVal+=99;
+//        if(playerAdvantage == 1 && game.pieces[0].size() < 3)
+//            advantageVal-=99;
+//
+//
+//        long distance = 0;
+//
+//        long minDist = 0;
+//
+//
+////        if(playerOneKings.size() == 2 && playerTwoKings.size() == 1){
+////            distance += euclideanDistance(playerOneKings.get(0), playerTwoKings.get(0));
+////            distance += euclideanDistance(playerOneKings.get(1), playerTwoKings.get(0));
+////            minDist =  (140 - distance) * 99 / 140;
+////        } else if(playerOneKings.size() == 1 && playerTwoKings.size() == 2) {
+////            distance += euclideanDistance(playerOneKings.get(0), playerTwoKings.get(0));
+////            distance += euclideanDistance(playerOneKings.get(0), playerTwoKings.get(1));
+////            minDist =  -(140 - distance) * 99 / 140;
+////        }
+//
+////        if(minVal < advantageVal + minDist/2){
+////            System.out.println(game);
+////            minVal = advantageVal + minDist/2;
+////            System.out.println(minVal);
+////        }
+//
+//        return (advantageVal + minDist/2);
+
+
+        long advantageValue = 0;
+
         for (Location loc : game.pieces[playerNumber]) {
 
             if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) { //About to loose
                 if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
-                    advantageValue += 9;
+                    advantageValue += 99;
                 }
             } else if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) { // If Player 2 occupying top left corner
                 if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 0)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 0))) {
                     if ((loc.row < 2) && (loc.col == 0)) {
-                        advantageValue += 7;
+                        advantageValue += 77;
                     }
                     if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
-                        advantageValue += 5;
+                        advantageValue += 55;
                     } else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
-                        advantageValue += 3;
+                        advantageValue += 33;
                     } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
-                        advantageValue += 3;
+                        advantageValue += 33;
                     }
 
                 } else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 0)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 0))) { //Player two occupies bottom corner
                     if ((loc.row > 5) && (loc.col == 3)) {
-                        advantageValue += 7;
+                        advantageValue += 77;
                     }
                     if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
-                        advantageValue += 5;
+                        advantageValue += 55;
                     } else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
-                        advantageValue += 3;
+                        advantageValue += 33;
                     } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
-                        advantageValue += 3;
+                        advantageValue += 33;
                     }
                 }
             }
@@ -138,37 +190,36 @@ class Player {
         for (Location loc : game.pieces[1 - playerNumber]) {
             if ((playerAdvantage == 1) && (game.pieces[0].size() < 3)) {
                 if ((loc.row > 5 && loc.col == 3) || (loc.row < 2 && loc.col == 0)) {
-                    advantageValue -= 9;
+                    advantageValue -= 99;
                 }
             } else if ((playerAdvantage == 0) && (game.pieces[1].size() < 3)) {
                 if (((game.board[0][0] > 0) && (game.board[0][0] % 2 == 1)) || ((game.board[1][0] > 0) && (game.board[1][0] % 2 == 1))) {
                     if ((loc.row < 2) && (loc.col == 0)) {
-                        advantageValue -= 7;
+                        advantageValue -= 77;
                     }
 
                     if ((loc.row == 2 && loc.col == 0) || (loc.row == 1 && loc.col == 1)) {
-                        advantageValue -= 5;
-                    } else if ((loc.row == 3 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
-                        advantageValue -= 3;
+                        advantageValue -= 55;
+                    } else if ((loc.row == 33 && loc.col == 0) || (loc.row == 3 && loc.col == 1)) {
+                        advantageValue -= 33;
                     } else if ((loc.row == 2 && loc.col == 1) || (loc.row == 0 && loc.col == 1)) {
-                        advantageValue -= 3;
+                        advantageValue -= 33;
                     }
 
                 } else if (((game.board[6][3] > 0) && (game.board[6][3] % 2 == 1)) || ((game.board[7][3] > 0) && (game.board[7][3] % 2 == 1))) {
                     if ((loc.row > 5) && (loc.col == 3)) {
-                        advantageValue -= 7;
+                        advantageValue -= 77;
                     }
                     if ((loc.row == 6 && loc.col == 2) || (loc.row == 5 && loc.col == 3)) {
-                        advantageValue -= 5;
+                        advantageValue -= 55;
                     } else if ((loc.row == 4 && loc.col == 3) || (loc.row == 4 && loc.col == 2)) {
-                        advantageValue -= 3;
+                        advantageValue -= 33;
                     } else if ((loc.row == 5 && loc.col == 2) || (loc.row == 7 && loc.col == 2)) {
-                        advantageValue -= 3;
+                        advantageValue -= 33;
                     }
                 }
             }
         }
-
         return advantageValue;
     }
 

@@ -299,37 +299,6 @@ class Game {
         return destGame;
     }
 
-
-    //    public String toString() {
-//        StringBuilder builder = new StringBuilder();
-//
-//        builder.append("\n\033[1;97m    A  B  C  D  E  F  G  H  \n");
-//
-//        for (int ii = 0; ii < 8; ii++) {
-//            builder.append(" \033[1;97m");
-//            builder.append(8 - ii);
-//            builder.append("\033[1;97m ");
-//            builder.append("");
-//
-//            int count = 0;
-//            for (int jj = 0; jj < 8; ) {
-//                if (ii % 2 == 0) {
-//                    builder.append(colorPieces(0, ii, jj++));
-//                    builder.append("\033[1;97m");
-//                }
-//                builder.append(colorPieces(board[ii][count++], ii, jj++));
-//                builder.append("\033[1;97m");
-//                if (ii % 2 == 1) {
-//                    builder.append(colorPieces(0, ii, jj++));
-//                    builder.append("\033[1;97m");
-//                }
-//            }
-//            builder.append("\n");
-//
-//        }
-//        return builder.toString();
-//    }
-
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
